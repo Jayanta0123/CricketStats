@@ -213,7 +213,7 @@ public class MultiThreadedStats {
 		long startTime = System.currentTimeMillis();
 		
 		ReadProfileThread[] profile = new ReadProfileThread[70];
-		Thread[] thread = new Thread[700];
+		Thread[] thread = new Thread[70];
 		for(int idx=0; idx<70; idx++) {
 			profile[idx] = new ReadProfileThread(cricketProfiles, 0+5*idx, 4+5*idx);
 			thread[idx] = new Thread(profile[idx], "thread-"+idx);
