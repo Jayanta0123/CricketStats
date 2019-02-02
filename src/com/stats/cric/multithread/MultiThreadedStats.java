@@ -112,14 +112,15 @@ class PlayerSummary {
 	private PlayerBattingStat testBatSummary, odiBatSummary, t20iBatSummary, iplBatSummary;
 	private PlayerBowlingStat testBowlSummary, odiBowlSummary, t20iBowlSummary, iplBowlSummary;
 	private String playerName;
+	private int cricbuzzId;
 	public PlayerSummary(PlayerBattingStat testBatSummary, PlayerBattingStat odiBatSummary, PlayerBattingStat t20iBatSummary, 
 			PlayerBattingStat iplBatSummary, PlayerBowlingStat testBowlSummary, PlayerBowlingStat odiBowlSummary,
 			PlayerBowlingStat t20iBowlSummary, PlayerBowlingStat iplBowlSummary,
-			String playerName) {
+			String playerName, int cricbuzzId) {
 		this.testBatSummary = testBatSummary; this.odiBatSummary = odiBatSummary; this.iplBatSummary = iplBatSummary;
 		this.testBowlSummary = testBowlSummary; this.odiBowlSummary = odiBowlSummary; this.iplBowlSummary = iplBowlSummary;
 		this.t20iBatSummary = t20iBatSummary; this.t20iBowlSummary = t20iBowlSummary;
-		this.playerName = playerName;
+		this.playerName = playerName; this.cricbuzzId = cricbuzzId;
 	}
 	PlayerSummary() {	}
 	
@@ -141,12 +142,14 @@ class PlayerSummary {
 	public void setIplBowlSummary(PlayerBowlingStat iplBowlSummary) {	this.iplBowlSummary = iplBowlSummary;	}
 	public String getPlayerName() {	return playerName;	}
 	public void setPlayerName(String playerName) {	this.playerName = playerName;	}
+	public int getCricbuzzId() { return cricbuzzId;	}
+	public void setCricbuzzId(int cricbuzzId) {	this.cricbuzzId = cricbuzzId;}
 	@Override
 	public String toString() {
 		return "PlayerSummary [testBatSummary=" + testBatSummary + ", odiBatSummary=" + odiBatSummary
 				+ ", t20iBatSummary=" + t20iBatSummary + ", iplBatSummary=" + iplBatSummary + ", testBowlSummary="
 				+ testBowlSummary + ", odiBowlSummary=" + odiBowlSummary + ", t20iBowlSummary=" + t20iBowlSummary
-				+ ", iplBowlSummary=" + iplBowlSummary + ", playerName=" + playerName + "]\n";
+				+ ", iplBowlSummary=" + iplBowlSummary + ", playerName=" + playerName + ", cricbuzzId=" + cricbuzzId + "]\n";
 	}
 }
 
@@ -309,7 +312,8 @@ public class MultiThreadedStats {
 						}
 					}
 				}
-				PlayerSummary playerSummary = buildPlayerObject(testNumbers, odiNumbers, t20iNumbers, iplNumbers, playerName);
+				int cricketProfileId = (i+25);
+				PlayerSummary playerSummary = buildPlayerObject(testNumbers, odiNumbers, t20iNumbers, iplNumbers, playerName, cricketProfileId);
 				cricketersList.add(playerSummary);
 				buffer.close();
 			} catch(NumberFormatException e) {
@@ -345,38 +349,42 @@ public class MultiThreadedStats {
 		System.out.println("\n **** Most Test Centuries ****\n");
 		Collections.sort(cricketersList, new SortByMostTestCenturies());
 		System.out.println(String.format("%25s", "Player Name") + String.format("%15s", "No. of 100s" ) + 
-				String.format("%10s", "Tests") + String.format("%10s", "Innings"));
+				String.format("%10s", "Tests") + String.format("%10s", "Innings") + String.format("%12s", "Profile-ID"));
 		for(PlayerSummary playerSummary : cricketersList) {
 			if(isValidTestPlayer(playerSummary) && hasBattingStatistics(playerSummary, "TEST"))
 				System.out.println(String.format("%25s", playerSummary.getPlayerName()) + 
 						String.format("%15s", playerSummary.getTestBatSummary().getHundreds()) +
 						String.format("%10s", playerSummary.getTestBatSummary().getTotMatches()) +
-						String.format("%10s", playerSummary.getTestBatSummary().getTotInnings()));
+						String.format("%10s", playerSummary.getTestBatSummary().getTotInnings()) + 
+						String.format("%12s", playerSummary.getCricbuzzId()));
 		}
 
 		System.out.println("\n **** Most Test Wickets ****\n");
 		Collections.sort(cricketersList, new SortByMostTestWickets());
 		System.out.println(String.format("%25s", "Player Name") + String.format("%20s", "No. of Wickets") + 
-				String.format("%10s", "Tests") + String.format("%10s", "Innings"));
+				String.format("%10s", "Tests") + String.format("%10s", "Innings") + String.format("%12s", "Profile-ID"));
 		for(PlayerSummary playerSummary : cricketersList) {
 			if(isValidTestPlayer(playerSummary) && hasBowlingStatistics(playerSummary, "TEST"))
 				System.out.println(String.format("%25s", playerSummary.getPlayerName()) + 
 						String.format("%20s", playerSummary.getTestBowlSummary().getWickets()) + 
 						String.format("%10s", playerSummary.getTestBowlSummary().getTotMatches())+ 
-						String.format("%10s", playerSummary.getTestBowlSummary().getTotInnings()));
+						String.format("%10s", playerSummary.getTestBowlSummary().getTotInnings())+ 
+						String.format("%12s", playerSummary.getCricbuzzId()));
 		}
 	
 		System.out.println("\n **** Highest T20i Batting Average ****\n");
 		Collections.sort(cricketersList, new SortByHighestT20BattingAvg());
 		System.out.println(String.format("%25s", "Player Name") + String.format("%20s", "Batting Average" ) + 
-				String.format("%10s", "Matches") + String.format("%10s", "Innings") + String.format("%10s", "Runs"));
+				String.format("%10s", "Matches") + String.format("%10s", "Innings") + String.format("%10s", "Runs") + 
+				String.format("%12s", "Profile-ID"));
 		for(PlayerSummary playerSummary : cricketersList) {
 			if(isValidT20iPlayer(playerSummary) && hasBattingStatistics(playerSummary, "T20I"))
 				System.out.println(String.format("%25s", playerSummary.getPlayerName()) + 
 						String.format("%20s", playerSummary.getT20iBatSummary().getBattingAvg()) + 
 						String.format("%10s", playerSummary.getT20iBatSummary().getTotMatches()) + 
 						String.format("%10s", playerSummary.getT20iBatSummary().getTotInnings()) + 
-						String.format("%10s", playerSummary.getT20iBatSummary().getRunsScored()) );
+						String.format("%10s", playerSummary.getT20iBatSummary().getRunsScored()) +
+						String.format("%12s", playerSummary.getCricbuzzId()));
 		}
 	}
 	
@@ -411,7 +419,7 @@ public class MultiThreadedStats {
 	}
 
 	private static PlayerSummary buildPlayerObject(List<Integer> testNumbers, List<Integer> odiNumbers,
-			List<Integer> t20iNumbers, List<Integer> iplNumbers, String playerName) {
+			List<Integer> t20iNumbers, List<Integer> iplNumbers, String playerName, int cricbuzzId) {
 
 		float testBatAverage = 0;
 		float testStrikeRate = 0;
@@ -578,7 +586,7 @@ public class MultiThreadedStats {
 			iplBowlingStat = null;
 		}
 		return new PlayerSummary(testBattingStat, odiBattingStat, t20iBattingStat, iplBattingStat, 
-				testBowlingStat, odiBowlingStat, t20iBowlingStat, iplBowlingStat, playerName);
+				testBowlingStat, odiBowlingStat, t20iBowlingStat, iplBowlingStat, playerName, cricbuzzId);
 	}
 
 	private static float correctAverageIfNeeded(Integer runs, int innings) {
