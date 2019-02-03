@@ -207,31 +207,31 @@ class ReadProfileThread implements Runnable {
 
 public class MultiThreadedStats {
 	public static void main (String[] args) {
-		String[] cricketProfiles = new String[400];
+		String[] cricketProfiles = new String[5000];
 		String cricBuzzProfileString = "https://www.cricbuzz.com/profiles/";
-		for(int i=0; i<400; i++) {
-			cricketProfiles[i] = cricBuzzProfileString + (6025+i);
+		for(int i=0; i<5000; i++) {
+			cricketProfiles[i] = cricBuzzProfileString + (25+i);
 		}
 		List<PlayerSummary> cricketersList;
 		long startTime = System.currentTimeMillis();
 		
-		ReadProfileThread[] profile = new ReadProfileThread[40];
-		Thread[] thread = new Thread[40];
-		for(int idx=0; idx<40; idx++) {
-			profile[idx] = new ReadProfileThread(cricketProfiles, 0+10*idx, 9+10*idx);
+		ReadProfileThread[] profile = new ReadProfileThread[100];
+		Thread[] thread = new Thread[100];
+		for(int idx=0; idx<100; idx++) {
+			profile[idx] = new ReadProfileThread(cricketProfiles, 0+50*idx, 49+50*idx);
 			thread[idx] = new Thread(profile[idx], "thread-"+idx);
 		}
-		for(int idx=0; idx<40; idx++)	
+		for(int idx=0; idx<100; idx++)
 			thread[idx].start();
 		try {
-			for(int idx=0; idx<40; idx++) {				
+			for(int idx=0; idx<100; idx++) {				
 				thread[idx].join();
 			}
 		}catch (InterruptedException ex) {
 			ex.printStackTrace();
 		}
 		cricketersList = profile[0].cricketersListPartial;
-		for(int idx=1; idx<40; idx++)
+		for(int idx=1; idx<100; idx++)
 			cricketersList.addAll(profile[idx].cricketersListPartial);
 		
 		long endTime = System.currentTimeMillis();
@@ -343,6 +343,7 @@ public class MultiThreadedStats {
 			return false;
 		return true;
 	}
+	
 
 	private static void printSomeStats(List<PlayerSummary> cricketersList) {
 		
@@ -351,7 +352,7 @@ public class MultiThreadedStats {
 		System.out.println(String.format("%25s", "Player Name") + String.format("%15s", "No. of 100s" ) + 
 				String.format("%10s", "Tests") + String.format("%10s", "Innings") + String.format("%12s", "Profile-ID"));
 		for(PlayerSummary playerSummary : cricketersList) {
-			if(isValidTestPlayer(playerSummary) && hasBattingStatistics(playerSummary, "TEST"))
+			if(isValidTestPlayer(playerSummary) && hasBattingStatistics(playerSummary, "TEST") && hasAtleastTenCenturiesInTESTAndODI(playerSummary, "TEST"))
 				System.out.println(String.format("%25s", playerSummary.getPlayerName()) + 
 						String.format("%15s", playerSummary.getTestBatSummary().getHundreds()) +
 						String.format("%10s", playerSummary.getTestBatSummary().getTotMatches()) +
@@ -364,7 +365,7 @@ public class MultiThreadedStats {
 		System.out.println(String.format("%25s", "Player Name") + String.format("%20s", "No. of Wickets") + 
 				String.format("%10s", "Tests") + String.format("%10s", "Innings") + String.format("%12s", "Profile-ID"));
 		for(PlayerSummary playerSummary : cricketersList) {
-			if(isValidTestPlayer(playerSummary) && hasBowlingStatistics(playerSummary, "TEST"))
+			if(isValidTestPlayer(playerSummary) && hasBowlingStatistics(playerSummary, "TEST") && hasAtLeastHundredWicketsInTESTAndODI(playerSummary, "TEST"))
 				System.out.println(String.format("%25s", playerSummary.getPlayerName()) + 
 						String.format("%20s", playerSummary.getTestBowlSummary().getWickets()) + 
 						String.format("%10s", playerSummary.getTestBowlSummary().getTotMatches())+ 
@@ -378,7 +379,7 @@ public class MultiThreadedStats {
 				String.format("%10s", "Matches") + String.format("%10s", "Innings") + String.format("%10s", "Runs") + 
 				String.format("%12s", "Profile-ID"));
 		for(PlayerSummary playerSummary : cricketersList) {
-			if(isValidT20iPlayer(playerSummary) && hasBattingStatistics(playerSummary, "T20I"))
+			if(isValidT20iPlayer(playerSummary) && hasBattingStatistics(playerSummary, "T20I") && hasScoredMinimumHundredRuns(playerSummary, "T20I"))
 				System.out.println(String.format("%25s", playerSummary.getPlayerName()) + 
 						String.format("%20s", playerSummary.getT20iBatSummary().getBattingAvg()) + 
 						String.format("%10s", playerSummary.getT20iBatSummary().getTotMatches()) + 
@@ -386,6 +387,41 @@ public class MultiThreadedStats {
 						String.format("%10s", playerSummary.getT20iBatSummary().getRunsScored()) +
 						String.format("%12s", playerSummary.getCricbuzzId()));
 		}
+	}
+	private static boolean hasScoredMinimumHundredRuns(PlayerSummary playerSummary, String matchType) {
+		if(matchType.equals("TEST") && playerSummary.getTestBatSummary().getRunsScored()>=100 )
+			return true;		
+		if(matchType.equals("ODI") && playerSummary.getOdiBatSummary().getRunsScored()>=100 )
+			return true;		
+		if(matchType.equals("T20I") && playerSummary.getT20iBatSummary().getRunsScored()>=100 )
+			return true;		
+		if(matchType.equals("IPL") && playerSummary.getIplBatSummary().getRunsScored()>=100 )
+			return true;		
+		return false;
+	}
+
+	private static boolean hasAtLeastHundredWicketsInTESTAndODI(PlayerSummary playerSummary, String matchType) {
+		if(matchType.equals("TEST") && playerSummary.getTestBowlSummary().getWickets()>=100)
+			return true;
+		if(matchType.equals("ODI") && playerSummary.getTestBowlSummary().getWickets()>=100)
+			return true;
+		if(matchType.equals("T20I"))
+			return true;		
+		if(matchType.equals("IPL"))
+			return true;		
+		return false;
+	}
+
+	private static boolean hasAtleastTenCenturiesInTESTAndODI(PlayerSummary playerSummary, String matchType) {
+		if(matchType.equals("TEST") && playerSummary.getTestBatSummary().getHundreds()>=10 )
+			return true;		
+		if(matchType.equals("ODI") && playerSummary.getOdiBatSummary().getHundreds()>=10 )
+			return true;
+		if(matchType.equals("T20I"))
+			return true;		
+		if(matchType.equals("IPL"))
+			return true;		
+		return false;
 	}
 	
 	private static boolean hasBattingStatistics(PlayerSummary playerSummary, String matchType) {
