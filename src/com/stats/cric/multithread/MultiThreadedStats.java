@@ -207,31 +207,31 @@ class ReadProfileThread implements Runnable {
 
 public class MultiThreadedStats {
 	public static void main (String[] args) {
-		String[] cricketProfiles = new String[350];
+		String[] cricketProfiles = new String[400];
 		String cricBuzzProfileString = "https://www.cricbuzz.com/profiles/";
-		for(int i=0; i<350; i++) {
-			cricketProfiles[i] = cricBuzzProfileString + (25+i);
+		for(int i=0; i<400; i++) {
+			cricketProfiles[i] = cricBuzzProfileString + (6025+i);
 		}
 		List<PlayerSummary> cricketersList;
 		long startTime = System.currentTimeMillis();
 		
-		ReadProfileThread[] profile = new ReadProfileThread[70];
-		Thread[] thread = new Thread[70];
-		for(int idx=0; idx<70; idx++) {
-			profile[idx] = new ReadProfileThread(cricketProfiles, 0+5*idx, 4+5*idx);
+		ReadProfileThread[] profile = new ReadProfileThread[40];
+		Thread[] thread = new Thread[40];
+		for(int idx=0; idx<40; idx++) {
+			profile[idx] = new ReadProfileThread(cricketProfiles, 0+10*idx, 9+10*idx);
 			thread[idx] = new Thread(profile[idx], "thread-"+idx);
 		}
-		for(int idx=0; idx<70; idx++)	
+		for(int idx=0; idx<40; idx++)	
 			thread[idx].start();
 		try {
-			for(int idx=0; idx<70; idx++) {				
+			for(int idx=0; idx<40; idx++) {				
 				thread[idx].join();
 			}
 		}catch (InterruptedException ex) {
 			ex.printStackTrace();
 		}
 		cricketersList = profile[0].cricketersListPartial;
-		for(int idx=1; idx<70; idx++)
+		for(int idx=1; idx<40; idx++)
 			cricketersList.addAll(profile[idx].cricketersListPartial);
 		
 		long endTime = System.currentTimeMillis();
@@ -433,14 +433,18 @@ public class MultiThreadedStats {
 		PlayerBowlingStat testBowlingStat=null;
 		
 		if( !testNumbers.isEmpty()) {
-			testBatAverage = testNumbers.get(5) + (float) testNumbers.get(6)/100;
-			testStrikeRate = testNumbers.get(8) + (float) testNumbers.get(9)/100;
-			testBatAverage = (testNumbers.get(6)<10)? correctAverageIfNeeded(testNumbers.get(3),(testNumbers.get(1)-testNumbers.get(2))) : testBatAverage;
-			testStrikeRate = (testNumbers.get(9)<10)? correctAverageIfNeeded(testNumbers.get(3)*100,testNumbers.get(7)) : testStrikeRate;
-
-			testBattingStat = new PlayerBattingStat(testNumbers.get(0), testNumbers.get(1), testNumbers.get(2), 
-				testNumbers.get(3), testNumbers.get(4), testBatAverage, testNumbers.get(7), testStrikeRate, testNumbers.get(10),
-				testNumbers.get(11), testNumbers.get(12), testNumbers.get(13), testNumbers.get(14));
+			if(testNumbers.get(1) !=0) {
+				testBatAverage = testNumbers.get(5) + (float) testNumbers.get(6)/100;
+				testStrikeRate = testNumbers.get(8) + (float) testNumbers.get(9)/100;
+				testBatAverage = (testNumbers.get(6)<10)? correctAverageIfNeeded(testNumbers.get(3),(testNumbers.get(1)-testNumbers.get(2))) : testBatAverage;
+				testStrikeRate = (testNumbers.get(9)<10)? correctAverageIfNeeded(testNumbers.get(3)*100,testNumbers.get(7)) : testStrikeRate;
+	
+				testBattingStat = new PlayerBattingStat(testNumbers.get(0), testNumbers.get(1), testNumbers.get(2), 
+					testNumbers.get(3), testNumbers.get(4), testBatAverage, testNumbers.get(7), testStrikeRate, testNumbers.get(10),
+					testNumbers.get(11), testNumbers.get(12), testNumbers.get(13), testNumbers.get(14));
+			}else {
+				testBattingStat = new PlayerBattingStat(testNumbers.get(0), 0,0, 0,0,0, 0,0,0, 0,0,0,0);
+			}
 			
 			if(testNumbers.size()>30) {
 				testBowlEconRate = testNumbers.get(24) + (float) testNumbers.get(25)/100;
@@ -475,13 +479,17 @@ public class MultiThreadedStats {
 		PlayerBowlingStat odiBowlingStat=null;
 		
 		if( !odiNumbers.isEmpty()) {
-			odiBatAverage = odiNumbers.get(5) + (float) odiNumbers.get(6)/100;
-			odiStrikeRate = odiNumbers.get(8) + (float) odiNumbers.get(9)/100;
-			odiBatAverage = (odiNumbers.get(6)<10)? correctAverageIfNeeded(odiNumbers.get(3),(odiNumbers.get(1)-odiNumbers.get(2))) : odiBatAverage;
-			odiStrikeRate = (odiNumbers.get(9)<10)? correctAverageIfNeeded(odiNumbers.get(3)*100,odiNumbers.get(7)) : odiStrikeRate;
-			odiBattingStat = new PlayerBattingStat(odiNumbers.get(0), odiNumbers.get(1), odiNumbers.get(2), 
-					odiNumbers.get(3), odiNumbers.get(4), odiBatAverage, odiNumbers.get(7), odiStrikeRate, odiNumbers.get(10),
-					odiNumbers.get(11), odiNumbers.get(12), odiNumbers.get(13), odiNumbers.get(14));
+			if(odiNumbers.get(1) !=0) {
+				odiBatAverage = odiNumbers.get(5) + (float) odiNumbers.get(6)/100;
+				odiStrikeRate = odiNumbers.get(8) + (float) odiNumbers.get(9)/100;
+				odiBatAverage = (odiNumbers.get(6)<10)? correctAverageIfNeeded(odiNumbers.get(3),(odiNumbers.get(1)-odiNumbers.get(2))) : odiBatAverage;
+				odiStrikeRate = (odiNumbers.get(9)<10)? correctAverageIfNeeded(odiNumbers.get(3)*100,odiNumbers.get(7)) : odiStrikeRate;
+				odiBattingStat = new PlayerBattingStat(odiNumbers.get(0), odiNumbers.get(1), odiNumbers.get(2), 
+						odiNumbers.get(3), odiNumbers.get(4), odiBatAverage, odiNumbers.get(7), odiStrikeRate, odiNumbers.get(10),
+						odiNumbers.get(11), odiNumbers.get(12), odiNumbers.get(13), odiNumbers.get(14));
+			}else {
+				odiBattingStat = new PlayerBattingStat(odiNumbers.get(0), 0,0, 0,0,0, 0,0,0, 0,0,0,0);
+			}
 
 			if(odiNumbers.size()>30) {
 				odiBowlEconRate = odiNumbers.get(24) + (float) odiNumbers.get(25)/100;
@@ -515,14 +523,19 @@ public class MultiThreadedStats {
 		PlayerBattingStat t20iBattingStat=null;
 		PlayerBowlingStat t20iBowlingStat=null;
 		if( !t20iNumbers.isEmpty()) {
-			t20iBatAverage = t20iNumbers.get(5) + (float) t20iNumbers.get(6)/100;
-			t20iStrikeRate = t20iNumbers.get(8) + (float) t20iNumbers.get(9)/100;
-			t20iBatAverage = (t20iNumbers.get(6)<10)? correctAverageIfNeeded(t20iNumbers.get(3),(t20iNumbers.get(1)-t20iNumbers.get(2))) : t20iBatAverage;
-			t20iStrikeRate = (t20iNumbers.get(9)<10)? correctAverageIfNeeded(t20iNumbers.get(3)*100,t20iNumbers.get(7)) : t20iStrikeRate;
-
-			t20iBattingStat = new PlayerBattingStat(t20iNumbers.get(0), t20iNumbers.get(1), t20iNumbers.get(2), 
-					t20iNumbers.get(3), t20iNumbers.get(4), t20iBatAverage, t20iNumbers.get(7), t20iStrikeRate, t20iNumbers.get(10),
-					t20iNumbers.get(11), t20iNumbers.get(12), t20iNumbers.get(13), t20iNumbers.get(14));
+			if( t20iNumbers.get(1) !=0) {
+				t20iBatAverage = t20iNumbers.get(5) + (float) t20iNumbers.get(6)/100;
+				t20iStrikeRate = t20iNumbers.get(8) + (float) t20iNumbers.get(9)/100;
+				t20iBatAverage = (t20iNumbers.get(6)<10)? correctAverageIfNeeded(t20iNumbers.get(3),(t20iNumbers.get(1)-t20iNumbers.get(2))) : t20iBatAverage;
+				t20iStrikeRate = (t20iNumbers.get(9)<10)? correctAverageIfNeeded(t20iNumbers.get(3)*100,t20iNumbers.get(7)) : t20iStrikeRate;
+	
+				t20iBattingStat = new PlayerBattingStat(t20iNumbers.get(0), t20iNumbers.get(1), t20iNumbers.get(2), 
+						t20iNumbers.get(3), t20iNumbers.get(4), t20iBatAverage, t20iNumbers.get(7), t20iStrikeRate, t20iNumbers.get(10),
+						t20iNumbers.get(11), t20iNumbers.get(12), t20iNumbers.get(13), t20iNumbers.get(14));
+			} else {
+				t20iBattingStat = new PlayerBattingStat(t20iNumbers.get(0), 0,0, 0,0,0, 0,0,0, 0,0,0,0);
+			}
+			
 			if( t20iNumbers.size()>30) {
 				t20iBowlEconRate = t20iNumbers.get(24) + (float) t20iNumbers.get(25)/100;
 				t20iBowlAverage = t20iNumbers.get(26) + (float) t20iNumbers.get(27)/100;
@@ -557,14 +570,18 @@ public class MultiThreadedStats {
 		PlayerBowlingStat iplBowlingStat=null;
 		
 		if( !iplNumbers.isEmpty()) {
-			iplBatAverage = iplNumbers.get(5) + (float) iplNumbers.get(6)/100;
-			iplStrikeRate = iplNumbers.get(8) + (float) iplNumbers.get(9)/100;
-			iplBatAverage = (iplNumbers.get(6)<10)? correctAverageIfNeeded(iplNumbers.get(3),(iplNumbers.get(1)-iplNumbers.get(2))) : iplBatAverage;
-			iplStrikeRate = (iplNumbers.get(9)<10)? correctAverageIfNeeded(iplNumbers.get(3)*100,iplNumbers.get(7)) : iplStrikeRate;
-			iplBattingStat = new PlayerBattingStat(iplNumbers.get(0), iplNumbers.get(1), iplNumbers.get(2), 
-					iplNumbers.get(3), iplNumbers.get(4), iplBatAverage, iplNumbers.get(7), iplStrikeRate, iplNumbers.get(10),
-					iplNumbers.get(11), iplNumbers.get(12), iplNumbers.get(13), iplNumbers.get(14));		
-
+			if( iplNumbers.get(1) !=0) {
+				iplBatAverage = iplNumbers.get(5) + (float) iplNumbers.get(6)/100;
+				iplStrikeRate = iplNumbers.get(8) + (float) iplNumbers.get(9)/100;
+				iplBatAverage = (iplNumbers.get(6)<10)? correctAverageIfNeeded(iplNumbers.get(3),(iplNumbers.get(1)-iplNumbers.get(2))) : iplBatAverage;
+				iplStrikeRate = (iplNumbers.get(9)<10)? correctAverageIfNeeded(iplNumbers.get(3)*100,iplNumbers.get(7)) : iplStrikeRate;
+				iplBattingStat = new PlayerBattingStat(iplNumbers.get(0), iplNumbers.get(1), iplNumbers.get(2), 
+						iplNumbers.get(3), iplNumbers.get(4), iplBatAverage, iplNumbers.get(7), iplStrikeRate, iplNumbers.get(10),
+						iplNumbers.get(11), iplNumbers.get(12), iplNumbers.get(13), iplNumbers.get(14));
+			}else {
+				iplBattingStat = new PlayerBattingStat(iplNumbers.get(0), 0,0, 0,0,0, 0,0,0, 0,0,0,0);
+			}
+			
 			if(iplNumbers.size()>30) {
 				iplBowlEconRate = iplNumbers.get(24) + (float) iplNumbers.get(25)/100;
 				iplBowlAverage = iplNumbers.get(26) + (float) iplNumbers.get(27)/100;
