@@ -166,6 +166,17 @@ class SortByHighestT20BattingAvg implements Comparator<PlayerSummary> {
 	}
 }
 
+class SortByMostIPLRunsScored implements Comparator<PlayerSummary> {
+	@Override
+	public int compare(PlayerSummary arg0, PlayerSummary arg1) {
+		if(arg0.getIplBatSummary()==null && arg1.getIplBatSummary()!=null) return -1;
+		if(arg0.getIplBatSummary()==null && arg1.getIplBatSummary()==null) return 0;
+		if(arg0.getIplBatSummary()!=null && arg1.getIplBatSummary()==null) return 1;
+		
+		return (int) (arg1.getIplBatSummary().getRunsScored() - arg0.getIplBatSummary().getRunsScored());
+	}
+}
+
 class SortByMostODIRuns implements Comparator<PlayerSummary> {
 	@Override
 	public int compare(PlayerSummary arg0, PlayerSummary arg1) {
@@ -193,6 +204,16 @@ class SortByMostODIWickets implements Comparator<PlayerSummary> {
 		if(arg0.getOdiBowlSummary()==null && arg1.getOdiBowlSummary()==null) return 0;
 		if(arg0.getOdiBowlSummary()!=null && arg1.getOdiBowlSummary()==null) return 1;		
 		return (int) (arg1.getOdiBowlSummary().getWickets() - arg0.getOdiBowlSummary().getWickets()) ; 
+	}
+}
+
+class SortByMostIPLWickets implements Comparator<PlayerSummary> {
+	@Override
+	public int compare(PlayerSummary arg0, PlayerSummary arg1) {
+		if(arg0.getIplBowlSummary()==null && arg1.getIplBowlSummary()!=null) return -1;
+		if(arg0.getIplBowlSummary()==null && arg1.getIplBowlSummary()==null) return 0;
+		if(arg0.getIplBowlSummary()!=null && arg1.getIplBowlSummary()==null) return 1;		
+		return (int) (arg1.getIplBowlSummary().getWickets() - arg0.getIplBowlSummary().getWickets()) ; 
 	}
 }
 
@@ -225,9 +246,9 @@ class ReadProfileThread implements Runnable {
 
 public class MultiThreadedStats {
 	public static void main (String[] args) {
-		String[] cricketProfiles = new String[1000];
+		String[] cricketProfiles = new String[5000];
 		String cricBuzzProfileString = "https://www.cricbuzz.com/profiles/";
-		for(int i=0; i<1000; i++) {
+		for(int i=0; i<5000; i++) {
 			cricketProfiles[i] = cricBuzzProfileString + (25+i);
 		}
 		List<PlayerSummary> cricketersList;
@@ -237,7 +258,7 @@ public class MultiThreadedStats {
 		Thread[] thread = new Thread[100];
 		
 		for(int idx=0; idx<100; idx++) {
-			profile[idx] = new ReadProfileThread(cricketProfiles, 0+10*idx, 9+10*idx);
+			profile[idx] = new ReadProfileThread(cricketProfiles, 0+50*idx, 49+50*idx);
 			thread[idx] = new Thread(profile[idx], "thread-"+idx);
 		}
 		for(int idx=0; idx<100; idx++)
@@ -373,6 +394,13 @@ public class MultiThreadedStats {
 		return true;
 	}
 	
+	private static boolean isValidIPLPlayer(PlayerSummary playerSummary) {
+		if(playerSummary.getPlayerName() == null || playerSummary.getPlayerName().isEmpty())
+			return false;
+		if( playerSummary.getIplBatSummary() == null && playerSummary.getIplBowlSummary() == null)
+			return false;
+		return true;
+	}
 
 	private static void printSomeStats(List<PlayerSummary> cricketersList) {
 		
@@ -398,7 +426,8 @@ public class MultiThreadedStats {
 				String.format("%10s", "Tests") + String.format("%10s", "Innings") + 
 				String.format("%18s", "Bowl Strike Rate") + String.format("%12s", "Bowl Avg") + String.format("%12s", "Profile-ID"));
 		for(PlayerSummary playerSummary : cricketersList) {
-			if(isValidTestPlayer(playerSummary) && hasBowlingStatistics(playerSummary, "TEST") && hasAtLeastHundredWicketsInTESTAndODI(playerSummary, "TEST"))
+			if(isValidTestPlayer(playerSummary) && hasBowlingStatistics(playerSummary, "TEST") && 
+					hasAtLeastFiftyOrHundredWicketsInTESTAndODI(playerSummary, "TEST", 100))
 				System.out.println(String.format("%25s", playerSummary.getPlayerName()) + 
 						String.format("%20s", playerSummary.getTestBowlSummary().getWickets()) + 
 						String.format("%10s", playerSummary.getTestBowlSummary().getTotMatches())+ 
@@ -433,7 +462,7 @@ public class MultiThreadedStats {
 				String.format("%12s", "Profile-ID"));
 		for(PlayerSummary playerSummary : cricketersList) {
 			if(isValidOdiPlayer(playerSummary) && hasBowlingStatistics(playerSummary, "ODI") && 
-					hasAtLeastHundredWicketsInTESTAndODI(playerSummary, "ODI"))
+					hasAtLeastFiftyOrHundredWicketsInTESTAndODI(playerSummary, "ODI", 100))
 				System.out.println(String.format("%25s", playerSummary.getPlayerName()) + 
 						String.format("%15s", playerSummary.getOdiBowlSummary().getWickets()) +
 						String.format("%12s", playerSummary.getOdiBowlSummary().getTotMatches()) +
@@ -450,7 +479,7 @@ public class MultiThreadedStats {
 				String.format("%12s", "Profile-ID"));
 		for(PlayerSummary playerSummary : cricketersList) {
 			if(isValidT20iPlayer(playerSummary) && hasBattingStatistics(playerSummary, "T20I") && 
-					hasScoredMinimumHundredRuns(playerSummary, "T20I"))
+					hasScoredMinimumFiveHundredRuns(playerSummary, "T20I"))
 				System.out.println(String.format("%25s", playerSummary.getPlayerName()) + 
 						String.format("%20s", playerSummary.getT20iBatSummary().getBattingAvg()) + 
 						String.format("%10s", playerSummary.getT20iBatSummary().getTotMatches()) + 
@@ -458,28 +487,72 @@ public class MultiThreadedStats {
 						String.format("%10s", playerSummary.getT20iBatSummary().getRunsScored()) +
 						String.format("%12s", playerSummary.getCricbuzzId()));
 		}
-	}
+
+		System.out.println("\n **** IPL Stats - most runs ****\n");
+		Collections.sort(cricketersList, new SortByMostIPLRunsScored());
+		System.out.println(String.format("%25s", "Player Name") + String.format("%20s", "Runs in IPL" ) + 
+				String.format("%10s", "Matches") + String.format("%10s", "Innings") + String.format("%15s", "Strike Rate") +
+				String.format("%10s", "Sixes") + String.format("%10s", "Fours") + String.format("%10s", "Average") + 
+				String.format("%15s", "Highest score") + String.format("%10s", "Fifties") + 
+				String.format("%12s", "Profile-ID"));
+		for(PlayerSummary playerSummary : cricketersList) {
+			if(isValidIPLPlayer(playerSummary) && hasBattingStatistics(playerSummary, "IPL") && 
+					hasScoredMinimumFiveHundredRuns(playerSummary, "IPL"))
+				System.out.println(String.format("%25s", playerSummary.getPlayerName()) + 
+						String.format("%20s", playerSummary.getIplBatSummary().getRunsScored()) + 
+						String.format("%10s", playerSummary.getIplBatSummary().getTotMatches()) + 
+						String.format("%10s", playerSummary.getIplBatSummary().getTotInnings()) + 
+						String.format("%15s", playerSummary.getIplBatSummary().getBattingStrikeRate()) + 
+						String.format("%10s", playerSummary.getIplBatSummary().getSixes()) + 
+						String.format("%10s", playerSummary.getIplBatSummary().getFours()) + 
+						String.format("%10s", playerSummary.getIplBatSummary().getBattingAvg()) +
+						String.format("%15s", playerSummary.getIplBatSummary().getHighestScore()) +
+						String.format("%10s", playerSummary.getIplBatSummary().getFifties()) +
+						String.format("%12s", playerSummary.getCricbuzzId()));
+		}
+		
+		System.out.println("\n **** IPL Stats - Most Wickets ****\n");
+		Collections.sort(cricketersList, new SortByMostIPLWickets());
+		System.out.println(String.format("%25s", "Player Name") + String.format("%12s", "Total Wkts" ) + 
+				String.format("%14s", "IPL Matches") + String.format("%10s", "Innings") + 
+				String.format("%15s", "Best-Bowling") + String.format("%15s", "Economy Rate") +
+				String.format("%18s", "Bowl Strike Rate") + 
+				String.format("%12s", "Profile-ID"));
+		for(PlayerSummary playerSummary : cricketersList) {
+			if(isValidIPLPlayer(playerSummary) && hasBowlingStatistics(playerSummary, "IPL") && 
+					hasAtLeastFiftyOrHundredWicketsInTESTAndODI(playerSummary, "IPL", 50))
+				System.out.println(String.format("%25s", playerSummary.getPlayerName()) + 
+						String.format("%12s", playerSummary.getIplBowlSummary().getWickets()) +
+						String.format("%14s", playerSummary.getIplBowlSummary().getTotMatches()) +
+						String.format("%10s", playerSummary.getIplBowlSummary().getTotInnings()) + 
+						String.format("%15s", playerSummary.getIplBowlSummary().getBestBowlingInn()) +
+						String.format("%15s", playerSummary.getIplBowlSummary().getBowlingEconomyRate()) +
+						String.format("%18s", playerSummary.getIplBowlSummary().getBowlingStrikeRate()) +
+						String.format("%12s", playerSummary.getCricbuzzId()));
+		}
+
+}
 	
-	private static boolean hasScoredMinimumHundredRuns(PlayerSummary playerSummary, String matchType) {
-		if(matchType.equals("TEST") && playerSummary.getTestBatSummary().getRunsScored()>=100 )
+	private static boolean hasScoredMinimumFiveHundredRuns(PlayerSummary playerSummary, String matchType) {
+		if(matchType.equals("TEST") && playerSummary.getTestBatSummary().getRunsScored()>=500 )
 			return true;		
-		if(matchType.equals("ODI") && playerSummary.getOdiBatSummary().getRunsScored()>=100 )
+		if(matchType.equals("ODI") && playerSummary.getOdiBatSummary().getRunsScored()>=500 )
 			return true;		
-		if(matchType.equals("T20I") && playerSummary.getT20iBatSummary().getRunsScored()>=100 )
+		if(matchType.equals("T20I") && playerSummary.getT20iBatSummary().getRunsScored()>=500 )
 			return true;		
-		if(matchType.equals("IPL") && playerSummary.getIplBatSummary().getRunsScored()>=100 )
+		if(matchType.equals("IPL") && playerSummary.getIplBatSummary().getRunsScored()>=500 )
 			return true;		
 		return false;
 	}
 
-	private static boolean hasAtLeastHundredWicketsInTESTAndODI(PlayerSummary playerSummary, String matchType) {
-		if(matchType.equals("TEST") && playerSummary.getTestBowlSummary().getWickets()>=100)
+	private static boolean hasAtLeastFiftyOrHundredWicketsInTESTAndODI(PlayerSummary playerSummary, String matchType, int wickets) {
+		if(matchType.equals("TEST") && playerSummary.getTestBowlSummary().getWickets()>=wickets)
 			return true;
-		if(matchType.equals("ODI") && playerSummary.getOdiBowlSummary().getWickets()>=100)
+		if(matchType.equals("ODI") && playerSummary.getOdiBowlSummary().getWickets()>=wickets)
 			return true;
-		if(matchType.equals("T20I"))
+		if(matchType.equals("T20I") && playerSummary.getT20iBowlSummary().getWickets()>=wickets)
 			return true;		
-		if(matchType.equals("IPL"))
+		if(matchType.equals("IPL") && playerSummary.getIplBowlSummary().getWickets()>=wickets)
 			return true;		
 		return false;
 	}
