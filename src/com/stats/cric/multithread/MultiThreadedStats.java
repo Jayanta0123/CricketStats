@@ -246,9 +246,9 @@ class ReadProfileThread implements Runnable {
 
 public class MultiThreadedStats {
 	public static void main (String[] args) {
-		String[] cricketProfiles = new String[5000];
+		String[] cricketProfiles = new String[15000];
 		String cricBuzzProfileString = "https://www.cricbuzz.com/profiles/";
-		for(int i=0; i<5000; i++) {
+		for(int i=0; i<15000; i++) {
 			cricketProfiles[i] = cricBuzzProfileString + (25+i);
 		}
 		List<PlayerSummary> cricketersList;
@@ -258,7 +258,7 @@ public class MultiThreadedStats {
 		Thread[] thread = new Thread[100];
 		
 		for(int idx=0; idx<100; idx++) {
-			profile[idx] = new ReadProfileThread(cricketProfiles, 0+50*idx, 49+50*idx);
+			profile[idx] = new ReadProfileThread(cricketProfiles, 0+150*idx, 149+150*idx);
 			thread[idx] = new Thread(profile[idx], "thread-"+idx);
 		}
 		for(int idx=0; idx<100; idx++)
