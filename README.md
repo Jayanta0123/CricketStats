@@ -8,7 +8,7 @@ A small java-application to manifest the beauty of multi-threaded programs. It s
 4. Run the **MultiThreadedStats** class next as a java-app, it processes 350 cricketers' profiles.
 5. See the difference in execution-time, you will understand why multi-threading is preferred in this kind of scenario.
 6. Play with the app, and see where it breaks.
-
+7. A small update, the project has been converted to a maven-project and the apache-common library is added as a maven dependency. So you don't need to set the classpath. You can import the project as a maven-project, build the project, and start using it.
 
 # Comments and Suggestions
 Your valuable comments are most welcome, write me back at *jmandal82 AT hotmail.com*
