@@ -222,7 +222,7 @@ public class SingleThreadedStats {
 					String[] words = inputLine.split("[ !<>=\"/,.]");
 					int posStart = 0; int posEnd = 0;
 					String matchType="";
-					boolean readPlayerNameOnce = true;
+					
 					for(int x=0; x<words.length; x++) {
 						if(words[x].isEmpty() || words[x] == null || words[x].equals("")) continue; 
 //						System.out.print(x + "->" + words[x] + " ");
@@ -257,10 +257,12 @@ public class SingleThreadedStats {
 							posEnd = x;
 							//System.out.println("End pos = " + posEnd);
 						}
-						if( words[x].equals("ICC") && words[x+1].equals("Ranking") && 
-							words[x+3].equals("Age") && words[x+5].equals("Career") && readPlayerNameOnce){
-							readPlayerNameOnce = false;
-							playerName = words[x-4] + " "+ words[x-3];
+						if( words[x].equals("cb-font-40")){
+							playerName = words[x+1] + " "+ words[x+2];
+							if(!words[x+3].equals("h1"))
+								playerName += (" " + words[x+3]);
+							if(!words[x+4].equals("h1"))
+								playerName += (" " + words[x+4]);
 						}
 						
 						if(StringUtils.isNumeric(words[x]) && x>posStart && posStart>0 && words[x].length()<10 &&

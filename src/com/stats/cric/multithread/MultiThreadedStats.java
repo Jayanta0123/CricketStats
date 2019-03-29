@@ -246,9 +246,9 @@ class ReadProfileThread implements Runnable {
 
 public class MultiThreadedStats {
 	public static void main (String[] args) {
-		String[] cricketProfiles = new String[15000];
+		String[] cricketProfiles = new String[18000];
 		String cricBuzzProfileString = "https://www.cricbuzz.com/profiles/";
-		for(int i=0; i<15000; i++) {
+		for(int i=0; i<18000; i++) {
 			cricketProfiles[i] = cricBuzzProfileString + (25+i);
 		}
 		List<PlayerSummary> cricketersList;
@@ -258,7 +258,7 @@ public class MultiThreadedStats {
 		Thread[] thread = new Thread[100];
 		
 		for(int idx=0; idx<100; idx++) {
-			profile[idx] = new ReadProfileThread(cricketProfiles, 0+150*idx, 149+150*idx);
+			profile[idx] = new ReadProfileThread(cricketProfiles, 0+180*idx, 179+180*idx);
 			thread[idx] = new Thread(profile[idx], "thread-"+idx);
 		}
 		for(int idx=0; idx<100; idx++)
@@ -302,7 +302,6 @@ public class MultiThreadedStats {
 					String[] words = inputLine.split("[ !<>=\"/,.]");
 					int posStart = 0; int posEnd = 0;
 					String matchType="";
-					boolean readPlayerNameOnce = true;
 					for(int x=0; x<words.length; x++) {
 						if(words[x].isEmpty() || words[x] == null || words[x].equals("")) continue; 
 //						System.out.print(x + "->" + words[x] + " ");
@@ -337,12 +336,12 @@ public class MultiThreadedStats {
 							posEnd = x;
 							//System.out.println("End pos = " + posEnd);
 						}
-						if( words[x].equals("ICC") && words[x+1].equals("Ranking") && 
-							words[x+3].equals("Age") && words[x+5].equals("Career") && readPlayerNameOnce){
-							readPlayerNameOnce = false;
-							playerName = words[x-4] + " "+ words[x-3];
-							if(!words[x-5].equals("name"))
-								playerName = words[x-5] + " " + playerName;
+						if( words[x].equals("cb-font-40")){
+							playerName = words[x+1] + " "+ words[x+2];
+							if(!words[x+3].equals("h1"))
+								playerName += (" " + words[x+3]);
+							if(!words[x+4].equals("h1"))
+								playerName += (" " + words[x+4]);
 						}
 						
 						if(StringUtils.isNumeric(words[x]) && x>posStart && posStart>0 && words[x].length()<10 &&
