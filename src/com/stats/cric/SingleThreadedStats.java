@@ -253,7 +253,8 @@ public class SingleThreadedStats {
 							}
 						}
 						
-						if(words[x].equals("tbody") && words[x+4].equals("table") && words[x+8].equals("div")){
+						if(words[x].equals("tbody") && words[x+4].equals("table") && 
+								(words[x+7].equals("div") || words[x+8].equals("div")) ){
 							posEnd = x;
 							//System.out.println("End pos = " + posEnd);
 						}

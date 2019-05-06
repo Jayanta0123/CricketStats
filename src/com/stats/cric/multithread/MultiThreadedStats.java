@@ -113,17 +113,20 @@ class PlayerSummary {
 	private PlayerBowlingStat testBowlSummary, odiBowlSummary, t20iBowlSummary, iplBowlSummary;
 	private String playerName;
 	private int cricbuzzId;
+	private boolean isProfileValid;
 	public PlayerSummary(PlayerBattingStat testBatSummary, PlayerBattingStat odiBatSummary, PlayerBattingStat t20iBatSummary, 
 			PlayerBattingStat iplBatSummary, PlayerBowlingStat testBowlSummary, PlayerBowlingStat odiBowlSummary,
 			PlayerBowlingStat t20iBowlSummary, PlayerBowlingStat iplBowlSummary,
-			String playerName, int cricbuzzId) {
+			String playerName, int cricbuzzId, boolean isProfileValid) {
 		this.testBatSummary = testBatSummary; this.odiBatSummary = odiBatSummary; this.iplBatSummary = iplBatSummary;
 		this.testBowlSummary = testBowlSummary; this.odiBowlSummary = odiBowlSummary; this.iplBowlSummary = iplBowlSummary;
 		this.t20iBatSummary = t20iBatSummary; this.t20iBowlSummary = t20iBowlSummary;
-		this.playerName = playerName; this.cricbuzzId = cricbuzzId;
+		this.playerName = playerName; this.cricbuzzId = cricbuzzId; this.isProfileValid = isProfileValid;
 	}
 	PlayerSummary() {	}
 	
+	public boolean isProfileValid() { 	return isProfileValid;	}
+	public void setProfileValid(boolean isProfileValid) {	this.isProfileValid = isProfileValid;	}
 	public PlayerBattingStat getTestBatSummary() {	return testBatSummary;	}
 	public void setTestBatSummary(PlayerBattingStat testBatSummary) {	this.testBatSummary = testBatSummary;	}
 	public PlayerBattingStat getOdiBatSummary() {	return odiBatSummary;	}
@@ -144,12 +147,14 @@ class PlayerSummary {
 	public void setPlayerName(String playerName) {	this.playerName = playerName;	}
 	public int getCricbuzzId() { return cricbuzzId;	}
 	public void setCricbuzzId(int cricbuzzId) {	this.cricbuzzId = cricbuzzId;}
+	
 	@Override
 	public String toString() {
 		return "PlayerSummary [testBatSummary=" + testBatSummary + ", odiBatSummary=" + odiBatSummary
 				+ ", t20iBatSummary=" + t20iBatSummary + ", iplBatSummary=" + iplBatSummary + ", testBowlSummary="
 				+ testBowlSummary + ", odiBowlSummary=" + odiBowlSummary + ", t20iBowlSummary=" + t20iBowlSummary
-				+ ", iplBowlSummary=" + iplBowlSummary + ", playerName=" + playerName + ", cricbuzzId=" + cricbuzzId + "]\n";
+				+ ", iplBowlSummary=" + iplBowlSummary + ", playerName=" + playerName + ", cricbuzzId=" + cricbuzzId 
+				+ ", isProfileValid=" + isProfileValid + "]\n";
 	}
 }
 
@@ -229,7 +234,7 @@ class SortByMostTestWickets implements Comparator<PlayerSummary> {
 
 class ReadProfileThread implements Runnable {
 	private int start, end;
-	private String[] cricketProfiles;
+ 	private String[] cricketProfiles;
 	List<PlayerSummary> cricketersListPartial;
 	ReadProfileThread(String[] cricketProfiles, int start, int end) {
 		this.start = start; this.end = end;
@@ -246,9 +251,9 @@ class ReadProfileThread implements Runnable {
 
 public class MultiThreadedStats {
 	public static void main (String[] args) {
-		String[] cricketProfiles = new String[18000];
+		String[] cricketProfiles = new String[15000];
 		String cricBuzzProfileString = "https://www.cricbuzz.com/profiles/";
-		for(int i=0; i<18000; i++) {
+		for(int i=0; i<15000; i++) {
 			cricketProfiles[i] = cricBuzzProfileString + (25+i);
 		}
 		List<PlayerSummary> cricketersList;
@@ -258,7 +263,7 @@ public class MultiThreadedStats {
 		Thread[] thread = new Thread[100];
 		
 		for(int idx=0; idx<100; idx++) {
-			profile[idx] = new ReadProfileThread(cricketProfiles, 0+180*idx, 179+180*idx);
+			profile[idx] = new ReadProfileThread(cricketProfiles, 0+150*idx, 149+150*idx);
 			thread[idx] = new Thread(profile[idx], "thread-"+idx);
 		}
 		for(int idx=0; idx<100; idx++)
@@ -282,6 +287,9 @@ public class MultiThreadedStats {
 		printSomeStats(cricketersList);
 		endTime = System.currentTimeMillis();
 		System.out.println("\nTotal time taken (to print data and stats) = " + (endTime-startTime) + " ms\n");
+		System.out.println("\n *** Out of " + cricketProfiles.length + " cricket-profile URLS, " + 
+				cricketersList.stream().map(cr -> cr.isProfileValid()).count() 
+			+ " have genuine data for cricketer. ***\n");
 	}
 	
 	static List<PlayerSummary> readURLsAndBuildPlayersList(String[] cricketProfiles, int start, int end) {
@@ -298,9 +306,16 @@ public class MultiThreadedStats {
 				testNumbers.removeAll(testNumbers); odiNumbers.removeAll(odiNumbers);
 				t20iNumbers.removeAll(t20iNumbers); iplNumbers.removeAll(iplNumbers);
 				String playerName="";
+				
+				int posStartGlobal=0;
+				int posEndGlobal=0;
+				int posCareerInfoGlobal=0;
+				
 				while ((inputLine=buffer.readLine()) != null) {
 					String[] words = inputLine.split("[ !<>=\"/,.]");
-					int posStart = 0; int posEnd = 0;
+					int posStart = 0; int posEnd = 0; 						
+					int posCareerInfo = 0;
+
 					String matchType="";
 					for(int x=0; x<words.length; x++) {
 						if(words[x].isEmpty() || words[x] == null || words[x].equals("")) continue; 
@@ -332,10 +347,11 @@ public class MultiThreadedStats {
 							}
 						}
 						
-						if(words[x].equals("tbody") && words[x+4].equals("table") && words[x+8].equals("div")){
+						if(words[x].equals("tbody") && words[x+4].equals("table") && 
+								(words[x+7].equals("div") || words[x+8].equals("div")) ){
 							posEnd = x;
-							//System.out.println("End pos = " + posEnd);
 						}
+
 						if( words[x].equals("cb-font-40")){
 							playerName = words[x+1] + " "+ words[x+2];
 							if(!words[x+3].equals("h1"))
@@ -344,17 +360,45 @@ public class MultiThreadedStats {
 								playerName += (" " + words[x+4]);
 						}
 						
+						if (words[x].equals("Career") && words[x+1].equals("Information") && posStart>0) {
+							posCareerInfo = x;
+						}											
+/*						if(i+25 == 201) {
+							System.out.print(" ** " + x + " -> " + words[x] + "\t");
+						}
+*/				
+						posStartGlobal = posStart; posEndGlobal = posEnd; posCareerInfoGlobal = posCareerInfo;
+						
 						if(StringUtils.isNumeric(words[x]) && x>posStart && posStart>0 && words[x].length()<10 &&
-								posEnd>=0 && posStart>posEnd) {
+								posEnd>=0 && posStart>posEnd &&
+								posStart > posCareerInfo) {
 							if(matchType.equals("Test")) testNumbers.add(Integer.parseInt(words[x]));
 							else if(matchType.equals("ODI")) odiNumbers.add(Integer.parseInt(words[x]));
 							else if(matchType.equals("T20I")) t20iNumbers.add(Integer.parseInt(words[x]));
 							else if(matchType.equals("IPL")) iplNumbers.add(Integer.parseInt(words[x]));
+						}else if(words[x].equals("-") && x>posStart && posStart>0 && words[x].length()<10 &&
+								posEnd>=0 && posStart>posEnd &&
+								posStart > posCareerInfo) {
+							if(matchType.equals("Test")) testNumbers.add(0);
+							else if(matchType.equals("ODI")) odiNumbers.add(0);
+							else if(matchType.equals("T20I")) t20iNumbers.add(0);
+							else if(matchType.equals("IPL")) iplNumbers.add(0);							
 						}
 					}
 				}
 				int cricketProfileId = (i+25);
-				PlayerSummary playerSummary = buildPlayerObject(testNumbers, odiNumbers, t20iNumbers, iplNumbers, playerName, cricketProfileId);
+
+				/*if(cricketProfileId >=1025 && cricketProfileId <=1049) {
+					System.out.println("\n\n******");
+					System.out.println("For " + playerName + ", Id = " + cricketProfileId + ", numbers are");
+					System.out.println(testNumbers); System.out.println(odiNumbers);
+					System.out.println(iplNumbers); System.out.println(t20iNumbers);
+					System.out.println("PosStart = " + posStartGlobal + ", posEnd = " + posEndGlobal + ", posCareer = " + posCareerInfoGlobal);
+				}*/
+
+				PlayerSummary playerSummary = buildPlayerObject(testNumbers, odiNumbers, t20iNumbers, iplNumbers, playerName, cricketProfileId,
+						(!playerName.equals("") && !playerName.isEmpty())	
+						);
 				cricketersList.add(playerSummary);
 				buffer.close();
 			} catch(NumberFormatException e) {
@@ -601,7 +645,8 @@ public class MultiThreadedStats {
 	}
 
 	private static PlayerSummary buildPlayerObject(List<Integer> testNumbers, List<Integer> odiNumbers,
-			List<Integer> t20iNumbers, List<Integer> iplNumbers, String playerName, int cricbuzzId) {
+			List<Integer> t20iNumbers, List<Integer> iplNumbers, String playerName, int cricbuzzId, boolean isProfileValid
+			) {
 
 		float testBatAverage = 0;
 		float testStrikeRate = 0;
@@ -704,6 +749,17 @@ public class MultiThreadedStats {
 		
 		PlayerBattingStat t20iBattingStat=null;
 		PlayerBowlingStat t20iBowlingStat=null;
+		
+/*		if(cricbuzzId == 143) {
+			System.out.println("\nBefore If");
+			t20iNumbers.forEach(n -> System.out.print(n + " :: "));
+			System.out.println();
+		}*/
+		
+/*		System.out.println("For Cricbuzz Id " + cricbuzzId + " - " + playerName + 
+				" T20iNum Array-size = " +  t20iNumbers.size() + " TestNums Array-size = " +  testNumbers.size() + 
+				" ODINum Array-size = " +  odiNumbers.size() + " IPL Array-size = " +  iplNumbers.size());*/
+		
 		if( !t20iNumbers.isEmpty()) {
 			if( t20iNumbers.get(1) !=0) {
 				t20iBatAverage = t20iNumbers.get(5) + (float) t20iNumbers.get(6)/100;
@@ -785,7 +841,8 @@ public class MultiThreadedStats {
 			iplBowlingStat = null;
 		}
 		return new PlayerSummary(testBattingStat, odiBattingStat, t20iBattingStat, iplBattingStat, 
-				testBowlingStat, odiBowlingStat, t20iBowlingStat, iplBowlingStat, playerName, cricbuzzId);
+				testBowlingStat, odiBowlingStat, t20iBowlingStat, iplBowlingStat, playerName, cricbuzzId, isProfileValid
+				);
 	}
 
 	private static float correctAverageIfNeeded(Integer runs, int innings) {
