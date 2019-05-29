@@ -534,7 +534,6 @@ public class MultiThreadedStats {
 						String.format("%15s", playerSummary.getOdiBowlSummary().getBowlingAvg()) +
 						String.format("%15s", playerSummary.getOdiBowlSummary().getBowlingEconomyRate()) +
 						String.format("%15s", playerSummary.getOdiBowlSummary().getFiveWickets()) +
-						String.format("%12s", "5-Wkt Haul") +  
 						String.format("%12s", playerSummary.getCricbuzzId()));
 		}
 		
