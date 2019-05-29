@@ -498,7 +498,7 @@ public class MultiThreadedStats {
 		System.out.println(String.format("%25s", "Player Name") + String.format("%15s", "Total Runs" ) + 
 				String.format("%12s", "No of ODIs") + String.format("%10s", "Innings") + 
 				String.format("%12s", "No of 100s") + String.format("%12s", "No of 50s") + String.format("%15s", "Batting Avg") +
-				String.format("%18s", "Hit-to-fence(4)") + String.format("%18s", "Over-the-fence(4)") +
+				String.format("%18s", "Hit-to-fence(4)") + String.format("%18s", "Over-the-fence(6)") +
 				String.format("%18s", "Bat Strike Rate") + 
 				String.format("%12s", "Profile-ID"));
 		for(PlayerSummary playerSummary : cricketersList) {
