@@ -1,8 +1,5 @@
 package com.stats.cric;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 public class TestFloatingNum {
 	public static void main(String[] args) {
 		Integer num1 = 15;

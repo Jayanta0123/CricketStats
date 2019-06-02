@@ -10,6 +10,9 @@ A small java-application to manifest the beauty of multi-threaded programs. It s
 6. Play with the app, and see where it breaks.
 7. A small update, the project has been converted to a maven-project and the apache-common library is added as a maven dependency. So you don't need to set the classpath. You can import the project as a maven-project, build the project, and start using it.
 
+# Changes in the project
+1. As of May-2019, the stats-data have been moved from *printing in the console* to **write to external files** because of buffer-constraint. Now run the Multi-threaded program to see the stats-data become available in different ***cricbuzz_<game-type>_stats*** text files in the root folder. 
+
 # Comments and Suggestions
 Your valuable comments are most welcome, write me back at *jmandal82 AT hotmail.com*
 
