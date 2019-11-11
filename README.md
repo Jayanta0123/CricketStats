@@ -5,7 +5,7 @@ A small java-application to manifest the beauty of multi-threaded programs. It s
 1. Download apache-commons library first from this maven-repository, page link https://mvnrepository.com/artifact/org.apache.commons/commons-lang3/3.8.1
 2. Add this jar file in your build-path in eclipse/IntelliJ. We are going to use one API from the StringUtils class.
 3. Run the **SingleThreadedStats** class as a java-app, currently it processes 150 cricketers' profiles.
-4. Run the **MultiThreadedStats** class next as a java-app, it processes 350 cricketers' profiles.
+4. Run the **MultiThreadedStats** class next as a java-app, it processes 10000 cricketers' profiles.
 5. See the difference in execution-time, you will understand why multi-threading is preferred in this kind of scenario.
 6. Play with the app, and see where it breaks.
 7. A small update, the project has been converted to a maven-project and the apache-common library is added as a maven dependency. So you don't need to set the classpath. You can import the project as a maven-project, build the project, and start using it.
