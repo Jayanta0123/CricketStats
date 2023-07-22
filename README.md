@@ -16,3 +16,5 @@ A small java-application to manifest the beauty of multi-threaded programs. It s
 # Comments and Suggestions
 Your valuable comments are most welcome, write me back at *jmandal82 AT hotmail.com*
 
+# Update as on July-2023
+Please stop cloning this project for now, the main program is returning with a 403 error (user forbidden) from the cricbuzz server.
