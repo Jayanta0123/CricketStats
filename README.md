@@ -18,3 +18,6 @@ Your valuable comments are most welcome, write me back at *jmandal82 AT hotmail.
 
 # Update as on July-2023
 Please stop cloning this project for now, the main program is returning with a 403 error (user forbidden) from the cricbuzz server.
+
+# Update as on June-204
+403 forbidden error have been resolved. Still if you encounter any 403/502 errors, I would request you to complete the build process first, and then check the execution status - it's present in the same folder.

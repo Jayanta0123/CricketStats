@@ -495,7 +495,7 @@ public class MultiThreadedStats {
 	private static void saveStatsInFiles(List<PlayerSummary> cricketersList) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cricbuzz_test_stats.txt", false));			
-			writer.write("\n **** Most Test Centuries ****\n\n");
+			writer.write("\n **** Most Test Centuries (minm 10 in total) ****\n\n");
 			Collections.sort(cricketersList, new SortByMostTestCenturies());
 			writer.write(String.format("%25s", "Player Name") + String.format("%15s", "No of 100s" ) + 
 					String.format("%15s", "No of 200s" ) + String.format("%12s", "No of 50s" ) + 
@@ -503,7 +503,8 @@ public class MultiThreadedStats {
 					String.format("%10s", "Tests") + String.format("%10s", "Innings") + 
 					String.format("%15s", "Total Runs") + String.format("%15s", "Batting Avg") + String.format("%12s", "Profile-ID") + "\n");
 			for(PlayerSummary playerSummary : cricketersList) {
-				if(isValidTestPlayer(playerSummary) && hasBattingStatistics(playerSummary, "TEST") && hasAtleastTenCenturiesInTESTAndODI(playerSummary, "TEST"))
+				if(isValidTestPlayer(playerSummary) && hasBattingStatistics(playerSummary, "TEST") &&
+						hasAtleastTenCenturiesInTESTAndODI(playerSummary, "TEST"))
 					writer.write(String.format("%25s", playerSummary.getPlayerName()) + 
 							String.format("%15s", playerSummary.getTestBatSummary().getHundreds()) +
 							String.format("%15s", playerSummary.getTestBatSummary().getDoubleHundreds()) + 
@@ -517,7 +518,7 @@ public class MultiThreadedStats {
 							String.format("%12s", playerSummary.getCricbuzzId()) + "\n");
 			}
 			
-			writer.write("\n\n **** Most Test Wickets ****\n");
+			writer.write("\n\n **** Most Test Wickets (minm 100 wkts) ****\n");
 			Collections.sort(cricketersList, new SortByMostTestWickets());
 			writer.write(String.format("%25s", "Player Name") + String.format("%20s", "No of Wickets") + 
 					String.format("%10s", "Tests") + String.format("%10s", "Innings") +
@@ -547,7 +548,7 @@ public class MultiThreadedStats {
 		
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cricbuzz_odi_stats.txt", false));			
-			writer.write("\n\n **** Most ODI Runs ****\n");
+			writer.write("\n\n **** Most ODI Runs (minm 10 centuries) ****\n");
 			Collections.sort(cricketersList, new SortByMostODIRuns());
 			writer.write(String.format("%25s", "Player Name") + String.format("%15s", "Total Runs" ) + 
 					String.format("%12s", "No of ODIs") + String.format("%10s", "Innings") + 
@@ -556,7 +557,8 @@ public class MultiThreadedStats {
 					String.format("%18s", "Bat Strike Rate") + 
 					String.format("%12s", "Profile-ID") + "\n");
 			for(PlayerSummary playerSummary : cricketersList) {
-				if(isValidOdiPlayer(playerSummary) && hasBattingStatistics(playerSummary, "ODI") && hasAtleastTenCenturiesInTESTAndODI(playerSummary, "ODI"))
+				if(isValidOdiPlayer(playerSummary) && hasBattingStatistics(playerSummary, "ODI") &&
+						hasAtleastTenCenturiesInTESTAndODI(playerSummary, "ODI"))
 					writer.write(String.format("%25s", playerSummary.getPlayerName()) + 
 							String.format("%15s", playerSummary.getOdiBatSummary().getRunsScored()) +
 							String.format("%12s", playerSummary.getOdiBatSummary().getTotMatches()) +
@@ -570,7 +572,7 @@ public class MultiThreadedStats {
 							String.format("%12s", playerSummary.getCricbuzzId()) + "\n");
 			}
 
-			writer.write("\n\n **** Most ODI Wickets ****\n");
+			writer.write("\n\n **** Most ODI Wickets (minm 100 wkts) ****\n");
 			Collections.sort(cricketersList, new SortByMostODIWickets());
 			writer.write(String.format("%25s", "Player Name") + String.format("%15s", "Total Wkts" ) + 
 					String.format("%12s", "No of ODIs") + String.format("%10s", "Innings") + 
@@ -598,7 +600,7 @@ public class MultiThreadedStats {
 		
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cricbuzz_t20_intl_stats.txt", false));
-			writer.write("\n\n **** Highest T20i Batting Average ****\n");
+			writer.write("\n\n **** Highest T20i Batting Average (minm 500 runs) ****\n");
 			Collections.sort(cricketersList, new SortByHighestT20BattingAvg());
 			String battingHeadersForT20 = String.format("%25s", "Player Name") + String.format("%20s", "Batting Average") +
 					String.format("%10s", "Matches") + String.format("%10s", "Innings") + String.format("%10s", "Runs") +
@@ -622,7 +624,7 @@ public class MultiThreadedStats {
 			}
 			writer.write("\n");
 
-			writer.write("\n\n **** Highest T20i Batting Strike-rate ****\n");
+			writer.write("\n\n **** Highest T20i Batting Strike-rate (minm 500 runs) ****\n");
 			Collections.sort(cricketersList, new SortByHighestT20BattingStrikeRate());
 			writer.write(battingHeadersForT20);
 			for(PlayerSummary playerSummary : cricketersList) {
@@ -641,7 +643,7 @@ public class MultiThreadedStats {
 			}
 			writer.write("\n");
 
-			writer.write("\n\n **** Most T20I Wickets ****\n");
+			writer.write("\n\n **** Most T20I Wickets (minm 25 wkts) ****\n");
 			Collections.sort(cricketersList, new SortByMostT20IWickets());
 			String bowlingHeadersForT20 = String.format("%25s", "Player Name") + String.format("%15s", "Total Wkts" ) +
 					String.format("%12s", "No of T20Is") + String.format("%10s", "Innings") +
@@ -665,7 +667,7 @@ public class MultiThreadedStats {
 			}
 			writer.write("\n");
 
-			writer.write("\n\n **** Best T20I bowling economy ****\n");
+			writer.write("\n\n **** Best T20I bowling economy (minm 25 wkts) ****\n");
 			Collections.sort(cricketersList, new SortByT20IBowlingEconomy());
 			writer.write(bowlingHeadersForT20);
 			for(PlayerSummary playerSummary : cricketersList) {
@@ -690,7 +692,7 @@ public class MultiThreadedStats {
 		
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cricbuzz_IPL_stats.txt", false));
-			writer.write("\n **** IPL Stats - most runs ****\n\n");
+			writer.write("\n **** IPL Stats - most runs (minm 500 runs) ****\n\n");
 			Collections.sort(cricketersList, new SortByMostIPLRunsScored());
 			writer.write(String.format("%25s", "Player Name") + String.format("%20s", "Runs in IPL" ) + 
 					String.format("%10s", "Matches") + String.format("%10s", "Innings") + String.format("%15s", "Strike Rate") +
@@ -715,7 +717,7 @@ public class MultiThreadedStats {
 							String.format("%12s", playerSummary.getCricbuzzId()) + "\n");
 			}
 			
-			writer.write("\n\n **** IPL Stats - Most Wickets ****\n\n");
+			writer.write("\n\n **** IPL Stats - Most Wickets (minm 50 wickets) ****\n\n");
 			Collections.sort(cricketersList, new SortByMostIPLWickets());
 			writer.write(String.format("%25s", "Player Name") + String.format("%12s", "Total Wkts" ) + 
 					String.format("%14s", "IPL Matches") + String.format("%10s", "Innings") + 
