@@ -8,12 +8,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+
+import javax.net.ssl.HttpsURLConnection;
 
 class PlayerBattingStat {
 	private int totMatches, totInnings, notOuts, runsScored, highestScore, ballsFaced, hundreds, doubleHundreds, fifties, fours, sixes;
@@ -254,32 +259,32 @@ class ReadProfileThread implements Runnable {
 
 public class MultiThreadedStats {
 	public static void main (String[] args) {
-		String[] cricketProfiles = new String[20000];
+		String[] cricketProfiles = new String[2000];
 		String cricBuzzProfileString = "https://www.cricbuzz.com/profiles/";
-		for(int i=0; i<20000; i++) {
+		for(int i=0; i<2000; i++) {
 			cricketProfiles[i] = cricBuzzProfileString + (25+i);
 		}
 		List<PlayerSummary> cricketersList;
 		long startTime = System.currentTimeMillis();
 		
-		ReadProfileThread[] profile = new ReadProfileThread[100];
-		Thread[] thread = new Thread[100];
+		ReadProfileThread[] profile = new ReadProfileThread[10];
+		Thread[] thread = new Thread[10];
 		
-		for(int idx=0; idx<100; idx++) {
-			profile[idx] = new ReadProfileThread(cricketProfiles, 0+200*idx, 199+200*idx);
+		for(int idx=0; idx<10; idx++) {
+			profile[idx] = new ReadProfileThread(cricketProfiles, 200*idx, 199+200*idx);
 			thread[idx] = new Thread(profile[idx], "thread-"+idx);
 		}
-		for(int idx=0; idx<100; idx++)
+		for(int idx=0; idx<10; idx++)
 			thread[idx].start();
 		try {
-			for(int idx=0; idx<100; idx++) {				
+			for(int idx=0; idx<10; idx++) {
 				thread[idx].join();
 			}
 		}catch (InterruptedException ex) {
 			ex.printStackTrace();
 		}
 		cricketersList = profile[0].cricketersListPartial;
-		for(int idx=1; idx<100; idx++)
+		for(int idx=1; idx<10; idx++)
 			cricketersList.addAll(profile[idx].cricketersListPartial);
 		
 		long endTime = System.currentTimeMillis();
@@ -292,7 +297,7 @@ public class MultiThreadedStats {
 		endTime = System.currentTimeMillis();
 		System.out.println("\nTotal time taken (to print data and stats) = " + (endTime-startTime) + " ms\n");
 		System.out.println("\n *** Out of " + cricketProfiles.length + " cricket-profile URLS, " + 
-				cricketersList.stream().map(cr -> cr.isProfileValid()).count() 
+				cricketersList.stream().map(PlayerSummary::isProfileValid).count()
 			+ " have genuine data for cricketer. ***\n");
 	}
 	
@@ -305,11 +310,18 @@ public class MultiThreadedStats {
 		
 		for (int i=start; i<=end; i++) {
 			try {
+				// add user agent
+				URL objUrl = new URL(cricketProfiles[i]);
+				HttpsURLConnection urlConnection = (HttpsURLConnection) objUrl.openConnection();
+				urlConnection.setRequestMethod("GET");
+				urlConnection.setRequestProperty("content-type", "text/html; charset=UTF-8");
+				urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36");
+				urlConnection.connect();
 
-				BufferedReader buffer = new BufferedReader(new InputStreamReader(new URL(cricketProfiles[i]).openStream()));
+				BufferedReader buffer = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), StandardCharsets.UTF_8));
 				String inputLine;
-				testNumbers.removeAll(testNumbers); odiNumbers.removeAll(odiNumbers);
-				t20iNumbers.removeAll(t20iNumbers); iplNumbers.removeAll(iplNumbers);
+				testNumbers.clear(); odiNumbers.clear();
+				t20iNumbers.clear(); iplNumbers.clear();
 				String playerName="";
 				
 				int posStartGlobal=0;
@@ -550,7 +562,7 @@ public class MultiThreadedStats {
 			}
 			writer.write("\n");
 			writer.close();
-		}catch (IOException ex) {
+		} catch (IOException ex) {
 			System.err.println("IO-Exception-odi :" + ex.getMessage());
 		}
 		
