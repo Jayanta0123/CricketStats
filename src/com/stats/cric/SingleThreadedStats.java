@@ -278,9 +278,7 @@ public class SingleThreadedStats {
 				PlayerSummary playerSummary = buildPlayerObject(testNumbers, odiNumbers, t20iNumbers, iplNumbers, playerName);
 				cricketersList.add(playerSummary);
 				buffer.close();
-			} catch(NumberFormatException e) {
-				e.printStackTrace();
-			} catch (MalformedURLException e) {
+			} catch(NumberFormatException | MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -429,8 +427,8 @@ public class SingleThreadedStats {
 		String odiBestBowlInn = "";
 		String odiBestBowlMatch = "";
 		
-		PlayerBattingStat odiBattingStat=null;
-		PlayerBowlingStat odiBowlingStat=null;
+		PlayerBattingStat odiBattingStat;
+		PlayerBowlingStat odiBowlingStat;
 		
 		if( !odiNumbers.isEmpty()) {
 			odiBatAverage = odiNumbers.get(5) + (float) odiNumbers.get(6)/100;
@@ -489,8 +487,8 @@ public class SingleThreadedStats {
 				t20iBowlAverage = (t20iNumbers.get(27)<10)? correctAverageIfNeeded(t20iNumbers.get(18),t20iNumbers.get(19)) : t20iBowlAverage;
 				t20iBowlStrikeRate = (t20iNumbers.get(29)<10)? correctAverageIfNeeded(t20iNumbers.get(17),t20iNumbers.get(19)) : t20iBowlStrikeRate;
 
-				t20iBestBowlInn = "" + t20iNumbers.get(20) + "/" + t20iNumbers.get(21);
-				t20iBestBowlMatch = "" + t20iNumbers.get(22) + "/" + t20iNumbers.get(23);
+				t20iBestBowlInn = t20iNumbers.get(20) + "/" + t20iNumbers.get(21);
+				t20iBestBowlMatch = t20iNumbers.get(22) + "/" + t20iNumbers.get(23);
 				t20iBowlingStat = new PlayerBowlingStat(t20iNumbers.get(15), t20iNumbers.get(16), t20iNumbers.get(17), 
 						t20iNumbers.get(18), t20iNumbers.get(19), t20iBestBowlInn, t20iBestBowlMatch, t20iBowlEconRate,
 						t20iBowlAverage, t20iBowlStrikeRate, t20iNumbers.get(30), t20iNumbers.get(31));
