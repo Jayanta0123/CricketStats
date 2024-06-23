@@ -10,6 +10,13 @@ A small java-application to manifest the beauty of multi-threaded programs. It s
 6. Play with the app, and see where it breaks.
 7. A small update, the project has been converted to a maven-project and the apache-common library is added as a maven dependency. So you don't need to set the classpath. You can import the project as a maven-project, build the project, and start using it.
 
+# How to use only the Maven-executable
+1. Get Maven (https://maven.apache.org/), set it up in your classpath
+2. Clone the project, go to its base-directory. If downloaded, unzip the file and go to its base.
+3. Open CMD, run _**mvn clean install**_
+4. Copy the big jar containing dependencies (fileName: CricketStats-1.0.0-jar-with-dependencies.jar) into a suitable folder
+5. Go to that folder and execute the following command  _**$java -jar CricketStats-1.0.0-jar-with-dependencies.jar**_
+
 # Changes in the project
 1. As of May-2019, the stats-data have been moved from *printing in the console* to **write to external files** because of buffer-constraint. Now run the Multi-threaded program to see the stats-data become available in different ***cricbuzz_<game-type>_stats*** text files in the root folder. 
 
@@ -20,4 +27,4 @@ Your valuable comments are most welcome, write me back at *jmandal82 AT hotmail.
 Please stop cloning this project for now, the main program is returning with a 403 error (user forbidden) from the cricbuzz server.
 
 # Update as on June-204
-403 forbidden error have been resolved. Still if you encounter any 403/502 errors, I would request you to complete the build process first, and then check the execution status - it's present in the same folder.
+1. 403 forbidden error have been resolved. Still if you encounter any 403/502 errors, I would request you to complete the build process first, and then check the execution status - it's present in the same folder.
