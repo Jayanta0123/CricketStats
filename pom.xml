@@ -2,8 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>CricketStats</groupId>
   <artifactId>CricketStats</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>CricketStat</name>
+  <packaging>jar</packaging>
   <description>Displays Stats in different formats of cricket for current and past players</description>
   <dependencies>
 	<dependency>
@@ -15,27 +16,7 @@
  
   <build>
     <sourceDirectory>src</sourceDirectory>
-    <plugins>
-		
-		<!-- <plugin>
-		  <groupId>org.codehaus.mojo</groupId>
-		  <artifactId>exec-maven-plugin</artifactId>
-		  <version>1.2.1</version>
-		  <executions>
-			<execution>
-			  <goals>
-				<goal>java</goal>
-			  </goals>
-			</execution>
-		  </executions>
-		  <configuration>
-			<mainClass>com.stats.cric.multithread.MultiThreadedStats</mainClass>
-			<arguments>
-			  <argument>foo</argument>
-			  <argument>bar</argument>
-			</arguments>
-		  </configuration>
-		</plugin> -->
+    <plugins>		
 
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
@@ -46,7 +27,33 @@
 				<target>15</target>
 			</configuration>
 		</plugin>
-	</plugins>
+
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-assembly-plugin</artifactId>
+			<executions>
+				<execution>
+					<phase>package</phase>
+					<goals>
+						<goal>single</goal>
+					</goals>
+					<configuration>
+						<archive>
+						<manifest>
+							<mainClass>
+								com.stats.cric.multithread.MultiThreadedStats
+							</mainClass>
+						</manifest>
+						</archive>
+						<descriptorRefs>
+							<descriptorRef>jar-with-dependencies</descriptorRef>
+						</descriptorRefs>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
 	
+	</plugins>
+		
   </build>
 </project>
