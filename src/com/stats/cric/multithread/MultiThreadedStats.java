@@ -1,5 +1,6 @@
 package com.stats.cric.multithread;
 
+import com.stats.cric.multithread.CricConstants;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -189,6 +190,20 @@ class SortByHighestT20BattingAvg implements Comparator<PlayerSummary> {
 	}
 }
 
+class SortByHighestT20TotalRuns implements Comparator<PlayerSummary> {
+	@Override
+	public int compare(PlayerSummary arg0, PlayerSummary arg1) {
+		if(arg0.getT20iBatSummary()==null && arg1.getT20iBatSummary()!=null) return -1;
+		if(arg0.getT20iBatSummary()==null && arg1.getT20iBatSummary()==null) return 0;
+		if(arg0.getT20iBatSummary()!=null && arg1.getT20iBatSummary()==null) return 1;
+		
+		if(arg1.getT20iBatSummary().getRunsScored() < arg0.getT20iBatSummary().getRunsScored()) return -1;
+		if(arg1.getT20iBatSummary().getRunsScored() > arg0.getT20iBatSummary().getRunsScored()) return 1;
+		return 0;
+	}
+}
+
+
 class SortByMostIPLRunsScored implements Comparator<PlayerSummary> {
 	@Override
 	public int compare(PlayerSummary arg0, PlayerSummary arg1) {
@@ -209,6 +224,7 @@ class SortByMostODIRuns implements Comparator<PlayerSummary> {
 		return arg1.getOdiBatSummary().getRunsScored() - arg0.getOdiBatSummary().getRunsScored();
 	}
 }
+
 	
 class SortByMostTestCenturies implements Comparator<PlayerSummary> {
 	@Override
@@ -290,35 +306,32 @@ class ReadProfileThread implements Runnable {
 public class MultiThreadedStats {
 	public static void main (String[] args) {
 
-		int MAX_CRICKETERS_PROFILES_TO_READ = 12500;
-		int TOTAL_THREADS_TO_CREATE = 25;
-
-		String[] cricketProfiles = new String[MAX_CRICKETERS_PROFILES_TO_READ];
+		String[] cricketProfiles = new String[CricConstants.MAX_CRICKETERS_PROFILES_TO_READ];
 		String cricBuzzProfileString = "https://www.cricbuzz.com/profiles/";
-		for(int i=0; i<MAX_CRICKETERS_PROFILES_TO_READ; i++) {
+		for(int i=0; i<CricConstants.MAX_CRICKETERS_PROFILES_TO_READ; i++) {
 			cricketProfiles[i] = cricBuzzProfileString + (25+i);
 		}
 		List<PlayerSummary> cricketersList;
 		long startTime = System.currentTimeMillis();
 		
-		ReadProfileThread[] profile = new ReadProfileThread[TOTAL_THREADS_TO_CREATE];
-		Thread[] thread = new Thread[TOTAL_THREADS_TO_CREATE];
+		ReadProfileThread[] profile = new ReadProfileThread[CricConstants.TOTAL_THREADS_TO_CREATE];
+		Thread[] thread = new Thread[CricConstants.TOTAL_THREADS_TO_CREATE];
 		
-		for(int idx=0; idx<TOTAL_THREADS_TO_CREATE; idx++) {
-			profile[idx] = new ReadProfileThread(cricketProfiles, 500*idx, 499+500*idx);
+		for(int idx=0; idx<CricConstants.TOTAL_THREADS_TO_CREATE; idx++) {
+			profile[idx] = new ReadProfileThread(cricketProfiles, 350*idx, 349+350*idx);
 			thread[idx] = new Thread(profile[idx], "thread-"+idx);
 		}
-		for(int idx=0; idx<TOTAL_THREADS_TO_CREATE; idx++)
+		for(int idx=0; idx<CricConstants.TOTAL_THREADS_TO_CREATE; idx++)
 			thread[idx].start();
 		try {
-			for(int idx=0; idx<TOTAL_THREADS_TO_CREATE; idx++) {
+			for(int idx=0; idx<CricConstants.TOTAL_THREADS_TO_CREATE; idx++) {
 				thread[idx].join();
 			}
 		}catch (InterruptedException ex) {
 			ex.printStackTrace();
 		}
 		cricketersList = profile[0].cricketersListPartial;
-		for(int idx=1; idx<TOTAL_THREADS_TO_CREATE; idx++)
+		for(int idx=1; idx<CricConstants.TOTAL_THREADS_TO_CREATE; idx++)
 			cricketersList.addAll(profile[idx].cricketersListPartial);
 		
 		long endTime = System.currentTimeMillis();
@@ -504,9 +517,13 @@ public class MultiThreadedStats {
 	private static void saveStatsInFiles(List<PlayerSummary> cricketersList) {
 
 		String todaysDate = getTodaysDateInMMDDYYYY();
+		int startProfileId = 25;
+		int endProfileId = 25 + CricConstants.MAX_CRICKETERS_PROFILES_TO_READ;
+		
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cricbuzz_test_stats.txt", false));			
 			writer.write("\n\n ********* STATS AS OF " + todaysDate + "***********\n");
+			writer.write("\n********* First " + CricConstants.MAX_CRICKETERS_PROFILES_TO_READ + " profiles from cricBuzz (id " + startProfileId + "-" + endProfileId + ") are considered *********\n\n");
 			writer.write("\n **** Most Test Centuries (minm 10 in total) ****\n\n");
 			Collections.sort(cricketersList, new SortByMostTestCenturies());
 			writer.write(String.format("%25s", "Player Name") + String.format("%15s", "No of 100s" ) + 
@@ -618,7 +635,7 @@ public class MultiThreadedStats {
 			Collections.sort(cricketersList, new SortByHighestT20BattingAvg());
 			String battingHeadersForT20 = String.format("%25s", "Player Name") + String.format("%20s", "Batting Average") +
 					String.format("%10s", "Matches") + String.format("%10s", "Innings") + String.format("%10s", "Runs") +
-					String.format("%15s", "Batting S.R.") + String.format("%10s", "Fifties") +
+					String.format("%15s", "Batting S.R.") + String.format("%10s", "Hundreds") + String.format("%10s", "Fifties") +
 					String.format("%10s", "Fours") + String.format("%10s", "Sixes") +
 					String.format("%12s", "Profile-ID") + "\n";
 			writer.write(battingHeadersForT20);
@@ -631,6 +648,7 @@ public class MultiThreadedStats {
 							String.format("%10s", playerSummary.getT20iBatSummary().getTotInnings()) + 
 							String.format("%10s", playerSummary.getT20iBatSummary().getRunsScored()) +
 							String.format("%15s", playerSummary.getT20iBatSummary().getBattingStrikeRate()) + 
+							String.format("%10s", playerSummary.getT20iBatSummary().getHundreds()) +
 							String.format("%10s", playerSummary.getT20iBatSummary().getFifties()) +
 							String.format("%10s", playerSummary.getT20iBatSummary().getFours()) + 
 							String.format("%10s", playerSummary.getT20iBatSummary().getSixes()) + 
@@ -650,9 +668,30 @@ public class MultiThreadedStats {
 							String.format("%10s", playerSummary.getT20iBatSummary().getTotInnings()) +
 							String.format("%10s", playerSummary.getT20iBatSummary().getRunsScored()) +
 							String.format("%15s", playerSummary.getT20iBatSummary().getBattingStrikeRate()) +
+							String.format("%10s", playerSummary.getT20iBatSummary().getHundreds()) +
 							String.format("%10s", playerSummary.getT20iBatSummary().getFifties()) +
 							String.format("%10s", playerSummary.getT20iBatSummary().getFours()) +
 							String.format("%10s", playerSummary.getT20iBatSummary().getSixes()) +
+							String.format("%12s", playerSummary.getCricbuzzId()) + "\n");
+			}
+			writer.write("\n");
+			
+			writer.write("\n **** Highest T20i Total Runs (minm 500 runs) ****\n");
+			Collections.sort(cricketersList, new SortByHighestT20TotalRuns());
+			writer.write(battingHeadersForT20);
+			for(PlayerSummary playerSummary : cricketersList) {
+				if(isValidT20iPlayer(playerSummary) && hasBattingStatistics(playerSummary, "T20I") && 
+						hasScoredMinimumFiveHundredRuns(playerSummary, "T20I"))
+					writer.write(String.format("%25s", playerSummary.getPlayerName()) + 
+							String.format("%20s", playerSummary.getT20iBatSummary().getBattingAvg()) + 
+							String.format("%10s", playerSummary.getT20iBatSummary().getTotMatches()) + 
+							String.format("%10s", playerSummary.getT20iBatSummary().getTotInnings()) + 
+							String.format("%10s", playerSummary.getT20iBatSummary().getRunsScored()) +
+							String.format("%15s", playerSummary.getT20iBatSummary().getBattingStrikeRate()) + 
+							String.format("%10s", playerSummary.getT20iBatSummary().getHundreds()) +
+							String.format("%10s", playerSummary.getT20iBatSummary().getFifties()) +
+							String.format("%10s", playerSummary.getT20iBatSummary().getFours()) + 
+							String.format("%10s", playerSummary.getT20iBatSummary().getSixes()) + 
 							String.format("%12s", playerSummary.getCricbuzzId()) + "\n");
 			}
 			writer.write("\n");
