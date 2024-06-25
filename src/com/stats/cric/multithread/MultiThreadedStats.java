@@ -9,10 +9,8 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.text.SimpleDateFormat;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -291,32 +289,36 @@ class ReadProfileThread implements Runnable {
 
 public class MultiThreadedStats {
 	public static void main (String[] args) {
-		String[] cricketProfiles = new String[12000];
+
+		int MAX_CRICKETERS_PROFILES_TO_READ = 12500;
+		int TOTAL_THREADS_TO_CREATE = 25;
+
+		String[] cricketProfiles = new String[MAX_CRICKETERS_PROFILES_TO_READ];
 		String cricBuzzProfileString = "https://www.cricbuzz.com/profiles/";
-		for(int i=0; i<12000; i++) {
+		for(int i=0; i<MAX_CRICKETERS_PROFILES_TO_READ; i++) {
 			cricketProfiles[i] = cricBuzzProfileString + (25+i);
 		}
 		List<PlayerSummary> cricketersList;
 		long startTime = System.currentTimeMillis();
 		
-		ReadProfileThread[] profile = new ReadProfileThread[20];
-		Thread[] thread = new Thread[20];
+		ReadProfileThread[] profile = new ReadProfileThread[TOTAL_THREADS_TO_CREATE];
+		Thread[] thread = new Thread[TOTAL_THREADS_TO_CREATE];
 		
-		for(int idx=0; idx<20; idx++) {
-			profile[idx] = new ReadProfileThread(cricketProfiles, 600*idx, 599+600*idx);
+		for(int idx=0; idx<TOTAL_THREADS_TO_CREATE; idx++) {
+			profile[idx] = new ReadProfileThread(cricketProfiles, 500*idx, 499+500*idx);
 			thread[idx] = new Thread(profile[idx], "thread-"+idx);
 		}
-		for(int idx=0; idx<20; idx++)
+		for(int idx=0; idx<TOTAL_THREADS_TO_CREATE; idx++)
 			thread[idx].start();
 		try {
-			for(int idx=0; idx<20; idx++) {
+			for(int idx=0; idx<TOTAL_THREADS_TO_CREATE; idx++) {
 				thread[idx].join();
 			}
 		}catch (InterruptedException ex) {
 			ex.printStackTrace();
 		}
 		cricketersList = profile[0].cricketersListPartial;
-		for(int idx=1; idx<20; idx++)
+		for(int idx=1; idx<TOTAL_THREADS_TO_CREATE; idx++)
 			cricketersList.addAll(profile[idx].cricketersListPartial);
 		
 		long endTime = System.currentTimeMillis();
@@ -491,10 +493,20 @@ public class MultiThreadedStats {
 			return false;
 		return true;
 	}
+	
+	private static String getTodaysDateInMMDDYYYY() {
+		String pattern = "MM/dd/yyyy";
+		SimpleDateFormat df = new SimpleDateFormat(pattern);
+		Date today = Calendar.getInstance().getTime();
+		return df.format(today);
+	}
 
 	private static void saveStatsInFiles(List<PlayerSummary> cricketersList) {
+
+		String todaysDate = getTodaysDateInMMDDYYYY();
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cricbuzz_test_stats.txt", false));			
+			writer.write("\n\n ********* STATS AS OF " + todaysDate + "***********\n");
 			writer.write("\n **** Most Test Centuries (minm 10 in total) ****\n\n");
 			Collections.sort(cricketersList, new SortByMostTestCenturies());
 			writer.write(String.format("%25s", "Player Name") + String.format("%15s", "No of 100s" ) + 
@@ -548,6 +560,7 @@ public class MultiThreadedStats {
 		
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cricbuzz_odi_stats.txt", false));			
+			writer.write("\n\n ********* STATS AS OF " + todaysDate + "***********\n");
 			writer.write("\n\n **** Most ODI Runs (minm 10 centuries) ****\n");
 			Collections.sort(cricketersList, new SortByMostODIRuns());
 			writer.write(String.format("%25s", "Player Name") + String.format("%15s", "Total Runs" ) + 
@@ -600,6 +613,7 @@ public class MultiThreadedStats {
 		
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cricbuzz_t20_intl_stats.txt", false));
+			writer.write("\n\n ********* STATS AS OF " + todaysDate + "***********\n");
 			writer.write("\n\n **** Highest T20i Batting Average (minm 500 runs) ****\n");
 			Collections.sort(cricketersList, new SortByHighestT20BattingAvg());
 			String battingHeadersForT20 = String.format("%25s", "Player Name") + String.format("%20s", "Batting Average") +
@@ -692,6 +706,7 @@ public class MultiThreadedStats {
 		
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cricbuzz_IPL_stats.txt", false));
+			writer.write("\n\n ********* STATS AS OF " + todaysDate + "***********\n");
 			writer.write("\n **** IPL Stats - most runs (minm 500 runs) ****\n\n");
 			Collections.sort(cricketersList, new SortByMostIPLRunsScored());
 			writer.write(String.format("%25s", "Player Name") + String.format("%20s", "Runs in IPL" ) + 
@@ -743,10 +758,6 @@ public class MultiThreadedStats {
 		}
 	}
 
-/*	private static void printSomeStats(List<PlayerSummary> cricketersList) {
-
-	}
-*/	
 	private static boolean hasScoredMinimumFiveHundredRuns(PlayerSummary playerSummary, String matchType) {
 		if(matchType.equals("TEST") && playerSummary.getTestBatSummary().getRunsScored()>=500 )
 			return true;		
