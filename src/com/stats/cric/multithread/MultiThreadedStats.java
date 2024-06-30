@@ -317,8 +317,12 @@ public class MultiThreadedStats {
 		ReadProfileThread[] profile = new ReadProfileThread[CricConstants.TOTAL_THREADS_TO_CREATE];
 		Thread[] thread = new Thread[CricConstants.TOTAL_THREADS_TO_CREATE];
 		
+		// Reading data in a set-of-numbers, if total profiles to read 1000, and no.of threads to create is 20
+		// setOfNumbers = 50
+		int setOfNumbers = CricConstants.MAX_CRICKETERS_PROFILES_TO_READ/CricConstants.TOTAL_THREADS_TO_CREATE ;
+		
 		for(int idx=0; idx<CricConstants.TOTAL_THREADS_TO_CREATE; idx++) {
-			profile[idx] = new ReadProfileThread(cricketProfiles, 350*idx, 349+350*idx);
+			profile[idx] = new ReadProfileThread(cricketProfiles, setOfNumbers*idx, (setOfNumbers-1)+setOfNumbers*idx);
 			thread[idx] = new Thread(profile[idx], "thread-"+idx);
 		}
 		for(int idx=0; idx<CricConstants.TOTAL_THREADS_TO_CREATE; idx++)
