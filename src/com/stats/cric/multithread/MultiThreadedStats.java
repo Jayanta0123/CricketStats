@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 
 import org.apache.commons.lang3.StringUtils;
 
-import javax.net.ssl.HttpsURLConnection;
+import java.net.HttpURLConnection;
 
 class PlayerBattingStat {
 	private int totMatches, totInnings, notOuts, runsScored, highestScore, ballsFaced, hundreds, doubleHundreds, fifties, fours, sixes;
@@ -362,9 +362,9 @@ public class MultiThreadedStats {
 			try {
 				// add user agent
 				URL objUrl = new URL(cricketProfiles[i]);
-				HttpsURLConnection urlConnection = (HttpsURLConnection) objUrl.openConnection();
+				HttpURLConnection urlConnection = (HttpURLConnection) objUrl.openConnection();
 				urlConnection.setRequestMethod("GET");
-				urlConnection.setRequestProperty("content-type", "text/html; charset=UTF-8");
+				urlConnection.setRequestProperty("content-type", "application/text; charset=UTF-8");
 				urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36");
 				urlConnection.connect();
 
