@@ -1,6 +1,5 @@
 package com.stats.cric.multithread;
 
-import com.stats.cric.multithread.CricConstants;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
