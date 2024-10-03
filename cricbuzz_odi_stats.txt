@@ -4,229 +4,117 @@
 
 
  **** Most ODI Runs (minm 10 centuries) ****
-              Player Name     Total Runs  No of ODIs   Innings  No of 100s   No of 50s    Batting Avg   Hit-to-fence(4) Over-the-fence(6)   Bat Strike Rate  Profile-ID
-        Sachin Tendulkar           18426         463       452          49          96          44.83              2016               195             86.24          25
-        Kumar Sangakkara           14234         404       380          25          93          41.99              1385                88             78.86         104
-             Virat Kohli           13906         295       283          50          72          58.18              1302               152             93.54        1413
-           Ricky Ponting           13704         375       365          30          82          42.04              1231               162             80.39          38
-       Sanath Jayasuriya           13430         445       433          28          68          32.13              1500               270             91.22         102
-      Mahela Jayawardene           12650         448       418          19          77          33.38              1119                76             78.97         101
-          Inzamam-ul-Haq           11739         378       350          10          83          39.53               971               144             74.24          35
-          Jacques Kallis           11579         328       314          17          86          44.36               911               137             72.89         213
-          Sourav Ganguly           11363         311       300          22          72          40.73              1122               190             73.71          29
-            Rahul Dravid           10889         344       318          12          83          39.17               950                42             71.24          27
-            Rohit Sharma           10866         265       257          31          57          49.17              1011               331             92.44         576
-                MS Dhoni           10773         350       297          10          73          50.58               826               229             87.56         265
-             Chris Gayle           10480         301       294          25          54           37.7              1128               331              87.2         247
-              Brian Lara           10405         299       289          19          63          40.17              1035               133             79.51         240
-    Tillakaratne Dilshan           10290         330       303          22          47          39.27              1111                56             86.23         105
-         Mohammad Yousuf            9720         288       273          15          64          41.72               785                90              75.1          34
-          Adam Gilchrist            9619         287       279          16          55          35.89              1162               149             96.95          36
-           AB de Villiers           9577         228       218          25          53           53.5               840               204             101.1         370
-        Aravinda de Silva           9284         308       296          11          64           34.9               712               102             81.13        3531
-             Saeed Anwar            8824         247       244          20          43          39.22               938                97             80.67        3703
-            Yuvraj Singh            8701         304       278          14          52          36.56               908               155             87.68          69
-          Desmond Haynes            8648         238       237          17          57          41.38               768                53             63.09        4174
-             Ross Taylor            8602         236       220          21          51          47.52               712               147             83.26         521
-         Marvan Atapattu            8529         268       259          11          59          37.57               734                15             67.72         100
-              Mark Waugh            8500         244       236          18          50          39.35               651                57              76.9        4727
-             Tamim Iqbal            8357         243       240          14          56          36.65               925               103             78.53         612
-         Virender Sehwag            8273         251       245          15          38          35.06              1132               136            104.34          26
-             Hashim Amla            8113         181       178          27          39          49.47               823                53             88.39         314
-        Herschelle Gibbs            8094         248       240          21          37          35.81               930               128             83.26         212
-             Eoin Morgan            7701         248       230          14          47          39.09               654               220             91.17         624
-          Martin Guptill            7346         198       195          18          39           41.5               751               187             87.31        1457
-            Nathan Astle            7090         223       217          16          41          34.93               720                86             72.64          50
-            Graeme Smith            6989         197       194          10          47          37.78               789                44             80.82         207
-           Upul Tharanga            6951         235       223          15          37          33.74               799                52             75.93         414
-            David Warner            6932         161       159          22          33          45.01               733               130             97.26        1739
-         Kane Williamson            6811         165       157          13          45           48.3               624                55             81.39        6326
-            Gary Kirsten            6798         185       185          13          45          40.71               659                20             72.04        4601
-          Shikhar Dhawan            6793         167       164          17          39          44.11               842                79             91.35        1446
-          Quinton de Kock           6770         155       155          21          30          45.74               771               118             96.65        8520
-         Sir Viv Richards           6721         187       167          11          45           47.0               600               126              90.2        4163
-          Brendan Taylor            6684         205       203          11          39          35.55               599               106             76.63         180
-         Mohammad Hafeez            6614         218       216          11          38          32.91               664               110              76.6         360
-                Joe Root            6522         171       160          16          39          47.61               520                49             86.77        8019
-          Matthew Hayden            6133         161       155          10          36          43.81               636                87             78.96         157
-              Babar Azam            5729         117       114          19          32          56.72               520                60             88.75        8359
-           Paul Stirling            5702         161       155          14          29          37.51               613               138             87.23        1114
-          Marlon Samuels            5606         207       196          10          30          32.98               526               118             75.12         356
-            Steven Smith            5583         163       147          12          34          43.62               497                55             87.23        2250
-           Faf du Plessis           5507         143       136          12          35          46.67               495                66             88.57        7825
-             Aaron Finch            5406         146       142          17          30          38.89               533               129             87.72        1643
-          Gautam Gambhir            5238         147       143          11          34          39.68               561                17             85.25         308
-               Shai Hope            5177         124       119          16          25          49.78               414                92             77.58       10384
-     Sir Gordon Greenidge           5134         128       127          11          31          45.04               470                81             64.92        4165
-             Jos Buttler            5022         181       154          11          26          39.54               407               170            117.09        2258
-     William Porterfield            4343         147       145          11          20          30.58               455                32             68.97         625
-      Marcus Trescothick            4335         123       122          12          21          37.37               528                41             85.22          44
-               Jason Roy            4271         116       110          12          21          39.92               511                81            105.53        6534
-          Jonny Bairstow            3868         107        98          11          17          42.98               437                92            102.93        6507
-            Fakhar Zaman            3492          82        81          11          16          46.56               390                74             93.44       10863
+              Player Name     Total Runs  No of ODIs   Innings  No of 100s   No of 50s    Batting Avg   Hit-to-fence(4) Over-the-fence(6)   Bat Strike Rate  Profile-ID             Country
+        Sachin Tendulkar           18426         463       452          49          96          44.83              2016               195             86.24          25              India 
+        Kumar Sangakkara           14234         404       380          25          93          41.99              1385                88             78.86         104           Sri Lanka
+           Ricky Ponting           13704         375       365          30          82          42.04              1231               162             80.39          38          Australia 
+       Sanath Jayasuriya           13430         445       433          28          68          32.13              1500               270             91.22         102           Sri Lanka
+      Mahela Jayawardene           12650         448       418          19          77          33.38              1119                76             78.97         101           Sri Lanka
+          Inzamam-ul-Haq           11739         378       350          10          83          39.53               971               144             74.24          35           Pakistan 
+          Jacques Kallis           11579         328       314          17          86          44.36               911               137             72.89         213        South Africa
+          Sourav Ganguly           11363         311       300          22          72          40.73              1122               190             73.71          29              India 
+            Rahul Dravid           10889         344       318          12          83          39.17               950                42             71.24          27              India 
+            Rohit Sharma           10866         265       257          31          57          49.17              1011               331             92.44         576              India 
+                MS Dhoni           10773         350       297          10          73          50.58               826               229             87.56         265              India 
+             Chris Gayle           10480         301       294          25          54           37.7              1128               331              87.2         247         West Indies
+              Brian Lara           10405         299       289          19          63          40.17              1035               133             79.51         240         West Indies
+    Tillakaratne Dilshan           10290         330       303          22          47          39.27              1111                56             86.23         105           Sri Lanka
+         Mohammad Yousuf            9720         288       273          15          64          41.72               785                90              75.1          34           Pakistan 
+          Adam Gilchrist            9619         287       279          16          55          35.89              1162               149             96.95          36          Australia 
+           AB de Villiers           9577         228       218          25          53           53.5               840               204             101.1         370        South Africa
+  Shivnarine Chanderpaul            8778         268       251          11          59          41.41               722                85             70.74         244         West Indies
+            Yuvraj Singh            8701         304       278          14          52          36.56               908               155             87.68          69              India 
+             Ross Taylor            8602         236       220          21          51          47.52               712               147             83.26         521         New Zealand
+         Marvan Atapattu            8529         268       259          11          59          37.57               734                15             67.72         100           Sri Lanka
+             Tamim Iqbal            8357         243       240          14          56          36.65               925               103             78.53         612         Bangladesh 
+         Virender Sehwag            8273         251       245          15          38          35.06              1132               136            104.34          26              India 
+             Hashim Amla            8113         181       178          27          39          49.47               823                53             88.39         314        South Africa
+        Herschelle Gibbs            8094         248       240          21          37          35.81               930               128             83.26         212        South Africa
+             Eoin Morgan            7701         248       230          14          47          39.09               654               220             91.17         624            England 
+            Nathan Astle            7090         223       217          16          41          34.93               720                86             72.64          50         New Zealand
+            Graeme Smith            6989         197       194          10          47          37.78               789                44             80.82         207        South Africa
+           Upul Tharanga            6951         235       223          15          37          33.74               799                52             75.93         414           Sri Lanka
+          Brendan Taylor            6684         205       203          11          39          35.55               599               106             76.63         180           Zimbabwe 
+         Mohammad Hafeez            6614         218       216          11          38          32.91               664               110              76.6         360           Pakistan 
+          Matthew Hayden            6133         161       155          10          36          43.81               636                87             78.96         157          Australia 
+          Marlon Samuels            5606         207       196          10          30          32.98               526               118             75.12         356         West Indies
+          Gautam Gambhir            5238         147       143          11          34          39.68               561                17             85.25         308              India 
+     William Porterfield            4343         147       145          11          20          30.58               455                32             68.97         625            Ireland 
+      Marcus Trescothick            4335         123       122          12          21          37.37               528                41             85.22          44            England 
 
 
  **** Most ODI Wickets (minm 100 wkts) ****
-              Player Name     Total Wkts  No of ODIs   Innings   Best-Bowling    Bowling avg   Bowl Economy  5-Wkt Haul  Profile-ID
-    Muttiah Muralitharan             534         350       341           7/30          23.08           3.93             10         110
-             Wasim Akram             502         356       351           5/15          23.53            3.9              6        3688
-            Waqar Younis             416         262       258           7/36          23.84           4.69             13        3706
-           Chaminda Vaas             400         322       320           8/19          27.54           4.19              4         108
-           Shahid Afridi             395         398       372           7/12          34.51           4.63              9         142
-           Shaun Pollock             393         303       297           6/35          24.51           3.68              5         218
-           Glenn McGrath             381         250       248           7/15          22.02           3.88              7          41
-               Brett Lee             380         221       217           5/22          23.36           4.76              9          42
-          Lasith Malinga             338         226       220           6/38          28.87           5.35              8         111
-             Anil Kumble             337         271       265           6/12           30.9           4.31              2          98
-       Sanath Jayasuriya             323         445       368           6/29          36.75           4.79              4         102
-          Shakib Al Hasan            317         247       241           5/29          29.53           4.47              4         544
-         Javagal Srinath             315         229       227           5/23          28.09           4.45              3        3894
-             Shane Warne             293         194       191           5/33          25.74           4.25              1         135
-            Ajit Agarkar             288         191       188           6/42          27.85           5.07              2         146
-         Saqlain Mushtaq             288         169       165           5/20          21.79           4.29              6        3738
-             Zaheer Khan             282         200       197           5/42          29.44           4.93              1          71
-          Jacques Kallis             273         328       283           5/30          31.79           4.84              2         213
-            Allan Donald             272         164       162           6/23          21.79           4.15              2        4582
-        Mashrafe Mortaza             270         220       220           6/26          32.95           4.88              1         323
-            Abdul Razzaq             269         265       254           6/35          31.84            4.7              3          78
-         Harbhajan Singh             269         236       227           5/31          33.36           4.31              3          75
-          James Anderson             269         194       191           5/23          29.22           4.92              2          65
-           Makhaya Ntini             266         173       171           6/22          24.66      4.5299997              4         216
-               Kapil Dev             253         225       221           5/43          27.45           3.72              1        3838
-           Shoaib Akhtar             247         163       162           6/16          24.98           4.77              4          30
-          Mitchell Starc             241         125       125           6/28          23.45           5.27              9        7710
-              Kyle Mills             240         170       169           5/25          27.02           4.73              1         202
-            Heath Streak             239         189       185           5/32          29.83           4.52              1        3420
-        Mitchell Johnson             239         153       150           6/31          25.26           4.84              3         496
-            Darren Gough             235         159       156           5/44          26.42            4.4              2          63
-       Sir Curtly Ambrose            225         176       175           5/17          24.13           3.48              4        4202
-             Tim Southee             221         161       159           7/33           33.7      5.5299997              3        1057
-         Ravindra Jadeja             220         197       189           5/33          36.07           4.88              2         587
-             Trent Boult             211         114       113           7/34          24.39            5.0              6        8117
-            Abdur Razzak             207         153       152           5/29           29.3           4.57              4         127
-            Chris Harris             203         250       232           5/42           37.5           4.28              1        4062
-         Craig McDermott             203         138       138           5/44          24.72           4.04              1        4704
-             Adil Rashid             202         140       134           5/27          32.48           5.61              2        1742
-            Chris Cairns             201         215       186           5/42          32.81           4.84              1          52
-            Dwayne Bravo             199         164       150           6/43          29.52           5.41              1         242
-              Dale Steyn             196         125       124           6/39          25.96           4.88              3         508
-        Venkatesh Prasad             196         161       160           5/27          32.31           4.67              1        2140
-             Steve Waugh             195         325       207           4/33          34.67           4.57              0        4712
-          Mohammed Shami             195         101       100           7/57          23.68           5.56              5        7909
-             Carl Hooper             193         227       203           4/34          36.05           4.36              0        4199
-          Lance Klusener             192         171       164           6/49          29.95            4.7              6        4606
-             Rashid Khan             190         105       100           7/18          19.98           4.21              5       10738
-            Morne Morkel             188         117       114           5/21          25.32           4.96              2         608
-        Dilhara Fernando             187         147       141           6/27           30.2           5.21              1         222
-             Saeed Ajmal             184         113       112           5/24          22.72           4.18              2        1053
-              Imran Khan             182         175       153           6/14          26.62            3.9              1        3647
-             Aaqib Javed             182         163       159           7/37          31.43           4.28              4        3702
-                Umar Gul             179         130       128           6/42          29.36            5.2              2         504
-            Stuart Broad             178         121       121           5/23          30.13           5.27              1         554
-              Adam Zampa             177         103       103           5/35           28.1           5.51              1        8642
-          Thisara Perera             175         166       157           6/44           32.8           5.84              4        2281
-          Nathan Bracken             174         116       116           5/47          24.37           4.42              2         444
-              Jacob Oram             173         160       154           5/26          29.18           4.38              2          59
-            Irfan Pathan             173         120       118           5/27          29.73           5.27              2          73
-            Chris Woakes             173         122       118           6/45          30.02           5.43              3        6670
-             Imran Tahir             173         107       104           7/45          24.84           4.65              3        6667
-           Kuldeep Yadav             172         106       103           6/25           26.0            5.0              2        8292
-           Mohammad Nabi             170         164       158           5/17          32.21           4.27              1        3007
-         Andrew Flintoff             169         141       119           5/19          24.38            4.4              2          61
-            Shane Watson             168         190       163           4/36           31.8           4.96              0         158
-             Chris Gayle             167         301       199           5/46          35.49           4.79              1         247
-       Mustafizur Rahman             164         104       103           6/43          26.26           5.17              5        9863
-           Mushtaq Ahmed             161         144       142           5/36           33.3           4.26              1        3704
-            Jason Holder             159         138       134           5/27          36.97           5.51              2        8313
-       Sir Richard Hadlee            158         115       112           5/25          21.56           3.34              5        3997
-         Manoj Prabhakar             157         130       127           5/33          28.88           4.28              2        3860
-        Malcolm Marshall             157         136       134           4/18          26.96           3.54              0        4182
-           Kagiso Rabada             157         101        99           6/16          27.78           5.06              2        9585
-            Ashish Nehra             157         120       120           6/23          31.73            5.2              2         269
-               Brad Hogg             156         123       113           5/32          26.85           4.52              2         140
-     Ravichandran Ashwin             156         116       114           4/25          33.21           4.93              0        1593
-        Sachin Tendulkar             154         463       270           5/32          44.48            5.1              2          25
-          Ajantha Mendis             152          87        84           6/13          21.87            4.8              3        1390
-           Upul Chandana             151         147       136           5/61          31.91           4.71              1         107
-          Jasprit Bumrah             149          89        88           6/19          23.55            4.6              2        9311
-              Shane Bond             147          82        80           6/19          20.88           4.29              4         418
-             Joel Garner             146          98        98           5/31          18.85            3.1              3        4170
-            Thomas Odoyo             145         136       129           4/25           29.9            4.6              0         190
-           Sir Ian Botham            145         116       115           4/31          28.54           4.01              0        5321
-         Jason Gillespie             142          97        96           5/22          25.43           4.21              3          40
-         Michael Holding             142         102       102           5/26          21.37           3.33              1        4167
-       Bhuvneshwar Kumar             141         121       120           5/42          35.11           5.08              1        1726
-             Pat Cummins             141          88        88           5/70          28.67           5.29              1        8095
-              Matt Henry             141          82        80           5/30           26.4           5.22              2        9067
-          Ewen Chatfield             140         114       112           5/34          25.84           3.58              1        4025
-         Mohammad Hafeez             139         218       177           4/41          38.86           4.19              0         360
-        Kumar Dharmasena             138         141       134           4/37          36.22           4.28              0        3576
-          Josh Hazlewood             138          90        89           6/52           27.0           4.76              3        6258
-            Scott Styris             137         188       162           6/25          35.32           4.75              1          58
-        Farveez Maharoof             135         109       105           6/14          28.07            4.9              2         112
-           Liam Plunkett             135          89        87           5/52           29.7           5.82              1         479
-          Damien Fleming             134          88        88           5/36          25.39           4.42              1        4737
-          Andrew Symonds             133         198       158           5/18          37.26           5.01              1          39
-          Prosper Utseya             133         164       160           5/36          46.91           4.37              1         181
-             Abdul Qadir             132         104       100           5/44          26.17           4.06              2        3678
-           Mervyn Dillon             130         108       107           5/29          32.45           4.62              3        4233
-            Ravi Shastri             129         150       136           5/15          36.05           4.22              1        3849
-           Rubel Hossain             129         104       102           6/26          34.32           5.68              1        1736
-           Jerome Taylor             128          90        88           5/48          29.53           5.22              1         379
-          Angelo Mathews             126         226       163           6/20          32.62           4.63              1        1629
-          Danny Morrison             126          96        95           5/34          27.54           4.54              2        4049
-        Mohammad Rafique             125         125       124           5/47          37.91           4.43              1         123
-           Azhar Mahmood             123         143       139           6/18          39.13           4.63              3         206
-           Mohammad Sami             121          87        85           5/10          29.48            5.0              1          31
-        Yuzvendra Chahal             121          72        69           6/42          27.13           5.27              2        7910
-              Wahab Riaz             120          91        90           5/46          34.31           5.71              1        1051
-         Sir Viv Richards            118         187       131           6/41          35.83            4.5              2        4163
-            Ravi Rampaul             117          92        88           5/49          29.35           5.11              2        4265
-      Sandeep Lamichhane             116          54        53           6/11           18.6           4.39              3       11158
-          Phil DeFreitas             115         103       103           4/35          32.83           3.97              0        5369
-           Dawlat Zadran             115          82        80           4/22          29.77           5.45              0        8029
-           Ishant Sharma             115          80        78           4/34          30.97           5.73              0         702
-           Hansie Cronje             114         188       153           5/32          34.79           4.44              1        4581
-            Kevin O Brien            114         152       116           4/13          32.68            5.2              0         690
-          Martin Snedden             114          93        90           4/34          28.39           4.29              0        4028
-            Gavin Larsen             113         121       119           4/24           35.4           3.77              0        4055
-            Yuvraj Singh             111         304       161           5/31          38.68            5.1              1          69
-        Paul Collingwood             111         197       151           6/31          38.68      4.9700003              1          66
-          Mudassar Nazar             111         122       104           5/28          30.92           4.24              1        3655
-               Moeen Ali             111         138       128           4/46          47.85           5.32              0        6692
-          Alzarri Joseph             111          68        67           5/56          28.45           5.47              1       11220
-          Naved-ul-Hasan             110          74        72           6/27          29.28           5.58              1        1565
-            Daryl Tuffey             110          94        92           4/24          32.13           4.89              0         204
-             Junaid Khan             110          76        76           4/12          29.24           5.36              0        7900
-             Tim Bresnan             109          85        84           5/48          34.98           5.42              1         537
- Pramodya Wickramasinghe             109         134       132           4/48          39.64      4.5299997              0        3558
-          Suranga Lakmal             109          86        84           4/13          32.42           5.46              0        1785
-          Simon ODonnell             108          87        87           5/13          28.72           4.28              1        4705
-             Nuwan Zoysa             108          95        93           5/26          29.75      4.5299997              1         109
-        Mitchell Santner             107         104        99           5/50          37.01           4.87              2       10100
-             Boyd Rankin             107          75        73           4/15          27.64           4.79              0         626
-    Tillakaratne Dilshan             106         330       204            4/4          45.08           4.88              0         105
-        Aravinda de Silva            106         308       156           4/30          39.41           4.87              0        3531
-         George Dockrell             106         125       105           4/24          36.52           4.86              0        6329
-       Mehidy Hasan Miraz            106          97        94           4/25          34.86           4.83              0       11081
-            Paul Reiffel             106          92        92           4/13          29.21           3.93              0        4730
-               Andre Nel             106          79        76           5/45          27.69           4.63              1         221
-             Umesh Yadav             106          75        73           4/31          33.63           6.01              0        1858
-            Grant Flower             104         221       156           4/32          40.62           4.64              0        3413
-            Graeme Swann             104          79        76           5/28          27.77           4.55              1         814
-          Shaheen Afridi             104          53        52           6/35          23.94           5.54              3       12160
-           Dennis Lillee             103          63        63           5/34          20.83            3.6              1        4636
-            Taskin Ahmed             103          73        71           5/28          29.98           5.41              2        8548
-           Chris Pringle             103          64        64           5/45          23.87           4.45              1        4059
-          Safyaan Sharif             102          82        81           5/33          31.04           4.98              2        7966
-             Steven Finn             102          69        67           5/33          29.37           5.06              2        6317
-        Elton Chigumbura             101         213       132           4/28          42.32           5.91              0         170
-         Mujeeb Ur Rahman            101          75        74           5/50          28.35           4.33              1       12071
-              Bilal Khan             101          49        49           5/31          20.97           5.06              4       10824
-          Sourav Ganguly             100         311       171           5/16          38.49           5.06              2          29
-            Roger Harper             100         105        99           4/40          34.31           3.98              0        4189
-               Ray Price             100         102        99           4/22          35.75           3.99              0         884
-               Hasan Ali             100          66        64           5/34          30.84            5.8              4       11320
-        Winston Benjamin             100          85        85           5/22          30.79           4.16              1        4198
-        Charl Langeveldt             100          72        71           5/39          29.62           5.09              2         215
+              Player Name     Total Wkts  No of ODIs   Innings   Best-Bowling    Bowling avg   Bowl Economy  5-Wkt Haul  Profile-ID             Country
+    Muttiah Muralitharan             534         350       341           7/30          23.08           3.93             10         110           Sri Lanka
+           Chaminda Vaas             400         322       320           8/19          27.54           4.19              4         108           Sri Lanka
+           Shaun Pollock             393         303       297           6/35          24.51           3.68              5         218        South Africa
+           Glenn McGrath             381         250       248           7/15          22.02           3.88              7          41          Australia 
+               Brett Lee             380         221       217           5/22          23.36           4.76              9          42          Australia 
+          Lasith Malinga             338         226       220           6/38          28.87           5.35              8         111           Sri Lanka
+             Anil Kumble             337         271       265           6/12           30.9           4.31              2          98              India 
+       Sanath Jayasuriya             323         445       368           6/29          36.75           4.79              4         102           Sri Lanka
+          Shakib Al Hasan            317         247       241           5/29          29.53           4.47              4         544         Bangladesh 
+          Daniel Vettori             305         295       278            5/7          31.72           4.13              2         205         New Zealand
+             Shane Warne             293         194       191           5/33          25.74           4.25              1         135          Australia 
+            Ajit Agarkar             288         191       188           6/42          27.85           5.07              2         146              India 
+             Zaheer Khan             282         200       197           5/42          29.44           4.93              1          71              India 
+          Jacques Kallis             273         328       283           5/30          31.79           4.84              2         213        South Africa
+        Mashrafe Mortaza             270         220       220           6/26          32.95           4.88              1         323         Bangladesh 
+            Abdul Razzaq             269         265       254           6/35          31.84            4.7              3          78           Pakistan 
+         Harbhajan Singh             269         236       227           5/31          33.36           4.31              3          75              India 
+          James Anderson             269         194       191           5/23          29.22           4.92              2          65            England 
+           Makhaya Ntini             266         173       171           6/22          24.66      4.5299997              4         216        South Africa
+           Shoaib Akhtar             247         163       162           6/16          24.98           4.77              4          30           Pakistan 
+              Kyle Mills             240         170       169           5/25          27.02           4.73              1         202         New Zealand
+        Mitchell Johnson             239         153       150           6/31          25.26           4.84              3         496          Australia 
+            Darren Gough             235         159       156           5/44          26.42            4.4              2          63            England 
+         Ravindra Jadeja             220         197       189           5/33          36.07           4.88              2         587              India 
+            Abdur Razzak             207         153       152           5/29           29.3           4.57              4         127         Bangladesh 
+            Chris Cairns             201         215       186           5/42          32.81           4.84              1          52         New Zealand
+            Dwayne Bravo             199         164       150           6/43          29.52           5.41              1         242         West Indies
+        Nuwan Kulasekara             199         184       181           5/22          33.92            4.9              1         507           Sri Lanka
+              Dale Steyn             196         125       124           6/39          25.96           4.88              3         508        South Africa
+            Morne Morkel             188         117       114           5/21          25.32           4.96              2         608        South Africa
+        Dilhara Fernando             187         147       141           6/27           30.2           5.21              1         222           Sri Lanka
+                Umar Gul             179         130       128           6/42          29.36            5.2              2         504           Pakistan 
+            Stuart Broad             178         121       121           5/23          30.13           5.27              1         554            England 
+          Nathan Bracken             174         116       116           5/47          24.37           4.42              2         444          Australia 
+              Jacob Oram             173         160       154           5/26          29.18           4.38              2          59         New Zealand
+            Irfan Pathan             173         120       118           5/27          29.73           5.27              2          73              India 
+         Andrew Flintoff             169         141       119           5/19          24.38            4.4              2          61            England 
+            Shane Watson             168         190       163           4/36           31.8           4.96              0         158          Australia 
+             Chris Gayle             167         301       199           5/46          35.49           4.79              1         247         West Indies
+            Shoaib Malik             158         287       217           4/19          39.19           4.67              0          33           Pakistan 
+            Ashish Nehra             157         120       120           6/23          31.73            5.2              2         269              India 
+               Brad Hogg             156         123       113           5/32          26.85           4.52              2         140          Australia 
+        Sachin Tendulkar             154         463       270           5/32          44.48            5.1              2          25              India 
+           Upul Chandana             151         147       136           5/61          31.91           4.71              1         107           Sri Lanka
+              Shane Bond             147          82        80           6/19          20.88           4.29              4         418         New Zealand
+            Thomas Odoyo             145         136       129           4/25           29.9            4.6              0         190              Kenya 
+         Jason Gillespie             142          97        96           5/22          25.43           4.21              3          40          Australia 
+         Mohammad Hafeez             139         218       177           4/41          38.86           4.19              0         360           Pakistan 
+            Scott Styris             137         188       162           6/25          35.32           4.75              1          58         New Zealand
+        Farveez Maharoof             135         109       105           6/14          28.07            4.9              2         112           Sri Lanka
+           Liam Plunkett             135          89        87           5/52           29.7           5.82              1         479       United States
+          Andrew Symonds             133         198       158           5/18          37.26           5.01              1          39          Australia 
+          Prosper Utseya             133         164       160           5/36          46.91           4.37              1         181           Zimbabwe 
+           Jerome Taylor             128          90        88           5/48          29.53           5.22              1         379         West Indies
+        Mohammad Rafique             125         125       124           5/47          37.91           4.43              1         123         Bangladesh 
+           Azhar Mahmood             123         143       139           6/18          39.13           4.63              3         206           Pakistan 
+           Mohammad Sami             121          87        85           5/10          29.48            5.0              1          31           Pakistan 
+           Ishant Sharma             115          80        78           4/34          30.97           5.73              0         702              India 
+            Kevin O Brien            114         152       116           4/13          32.68            5.2              0         690            Ireland 
+            Yuvraj Singh             111         304       161           5/31          38.68            5.1              1          69              India 
+        Paul Collingwood             111         197       151           6/31          38.68      4.9700003              1          66            England 
+            Daryl Tuffey             110          94        92           4/24          32.13           4.89              0         204         New Zealand
+             Tim Bresnan             109          85        84           5/48          34.98           5.42              1         537            England 
+             Nuwan Zoysa             108          95        93           5/26          29.75      4.5299997              1         109           Sri Lanka
+             Boyd Rankin             107          75        73           4/15          27.64           4.79              0         626            Ireland 
+    Tillakaratne Dilshan             106         330       204            4/4          45.08           4.88              0         105           Sri Lanka
+               Andre Nel             106          79        76           5/45          27.69           4.63              1         221        South Africa
+            Graeme Swann             104          79        76           5/28          27.77           4.55              1         814            England 
+        Elton Chigumbura             101         213       132           4/28          42.32           5.91              0         170           Zimbabwe 
+          Sourav Ganguly             100         311       171           5/16          38.49           5.06              2          29              India 
+               Ray Price             100         102        99           4/22          35.75           3.99              0         884           Zimbabwe 
+        Charl Langeveldt             100          72        71           5/39          29.62           5.09              2         215        South Africa
 
