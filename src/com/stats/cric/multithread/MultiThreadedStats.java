@@ -340,7 +340,7 @@ public class MultiThreadedStats {
 		String[] cricketProfiles = new String[CricConstants.MAX_CRICKETERS_PROFILES_TO_READ];
 		String cricBuzzProfileString = "https://www.cricbuzz.com/profiles/";
 		for(int i=0; i<CricConstants.MAX_CRICKETERS_PROFILES_TO_READ; i++) {
-			cricketProfiles[i] = cricBuzzProfileString + (25+i);
+			cricketProfiles[i] = cricBuzzProfileString + (CricConstants.CRICBUZZ_STARTING_PROFILE_ID+i);
 		}
 		List<PlayerSummary> cricketersList;
 		long startTime = System.currentTimeMillis();
@@ -596,8 +596,8 @@ public class MultiThreadedStats {
 	private static void saveStatsInFiles(List<PlayerSummary> cricketersList) {
 
 		String todaysDate = getTodaysDateInMMDDYYYY();
-		int startProfileId = 25;
-		int endProfileId = 25 + CricConstants.MAX_CRICKETERS_PROFILES_TO_READ;
+		int startProfileId = CricConstants.CRICBUZZ_STARTING_PROFILE_ID;
+		int endProfileId = CricConstants.CRICBUZZ_STARTING_PROFILE_ID + CricConstants.MAX_CRICKETERS_PROFILES_TO_READ;
 		
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cricbuzz_test_stats.txt", false));			
