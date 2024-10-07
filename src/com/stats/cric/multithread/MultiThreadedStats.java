@@ -15,8 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.net.HttpURLConnection;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 class PlayerBattingStat {
 	private int totMatches, totInnings, notOuts, runsScored, highestScore, ballsFaced, hundreds, doubleHundreds, fifties, fours, sixes;
@@ -322,6 +320,13 @@ class ReadProfileThread implements Runnable {
 	@Override
 	public void run() {
 		long startTime = System.currentTimeMillis();
+
+		try {
+			Thread.sleep(1000 + new Random().nextInt(2000));  // Sleep for 1 to 3 seconds
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();  // Restore interrupted status
+		}
+
 		cricketersListPartial = MultiThreadedStats.readURLsAndBuildPlayersList(cricketProfiles, start, end);
 		long endTime = System.currentTimeMillis();
 		System.out.println("Time to build the players-list = " + (endTime-startTime) + " ms, thread = \"" + Thread.currentThread().getName() + "\", start-id = " + start + ", end-id = " + end);
@@ -338,7 +343,9 @@ public class MultiThreadedStats {
 		}
 		List<PlayerSummary> cricketersList;
 		long startTime = System.currentTimeMillis();
-		
+
+//		ExecutorService executorService = Executors.newFixedThreadPool(CricConstants.MAX_CRICKETERS_PROFILES_TO_READ);
+
 		ReadProfileThread[] profile = new ReadProfileThread[CricConstants.TOTAL_THREADS_TO_CREATE];
 		Thread[] thread = new Thread[CricConstants.TOTAL_THREADS_TO_CREATE];
 		
@@ -398,7 +405,7 @@ public class MultiThreadedStats {
 		
 		for (int i=start; i<=end; i++) {
 			try {
-				// add user agent
+				// Add user agent
 				URL objUrl = new URL(cricketProfiles[i]);
 				HttpURLConnection urlConnection = (HttpURLConnection) objUrl.openConnection();
 				urlConnection.setRequestMethod("GET");
@@ -570,18 +577,20 @@ public class MultiThreadedStats {
 					String.format("%15s", "Batting Avg") + String.format("%12s", "Profile-ID") + "\n") ;
 
 			for (PlayerSummary indianPlayer : indianPlayersList) {
-				writer.write(String.format("%25s", indianPlayer.getPlayerName()) +
-						String.format("%10s", indianPlayer.getTestBatSummary().getTotMatches()) +
-						String.format("%10s", indianPlayer.getTestBatSummary().getTotInnings()) +
-						String.format("%15s", indianPlayer.getTestBatSummary().getRunsScored()) +
-						String.format("%15s", indianPlayer.getTestBatSummary().getHundreds()) +
-						String.format("%15s", indianPlayer.getTestBatSummary().getDoubleHundreds()) +
-						String.format("%12s", indianPlayer.getTestBatSummary().getFifties()) +
-						String.format("%15s", indianPlayer.getTestBatSummary().getHighestScore()) +
-						String.format("%14s", indianPlayer.getTestBatSummary().getBattingStrikeRate()) +
-						String.format("%15s", indianPlayer.getTestBatSummary().getBattingAvg()) +
-						String.format("%12s", indianPlayer.getCricbuzzId()) + "\n"
-				);
+				if(isValidTestPlayer(indianPlayer) && hasBattingStatistics(indianPlayer, "TEST")) {
+					writer.write(String.format("%25s", indianPlayer.getPlayerName()) +
+							String.format("%10s", indianPlayer.getTestBatSummary().getTotMatches()) +
+							String.format("%10s", indianPlayer.getTestBatSummary().getTotInnings()) +
+							String.format("%15s", indianPlayer.getTestBatSummary().getRunsScored()) +
+							String.format("%15s", indianPlayer.getTestBatSummary().getHundreds()) +
+							String.format("%15s", indianPlayer.getTestBatSummary().getDoubleHundreds()) +
+							String.format("%12s", indianPlayer.getTestBatSummary().getFifties()) +
+							String.format("%15s", indianPlayer.getTestBatSummary().getHighestScore()) +
+							String.format("%14s", indianPlayer.getTestBatSummary().getBattingStrikeRate()) +
+							String.format("%15s", indianPlayer.getTestBatSummary().getBattingAvg()) +
+							String.format("%12s", indianPlayer.getCricbuzzId()) + "\n"
+					);
+				}
 			}
 			writer.write("\n\n");
 			writer.close();
