@@ -1,89 +1,178 @@
 
 
- ********* STATS AS OF 10/03/2024***********
+ ********* STATS AS OF 10/07/2024***********
 
  **** IPL Stats - most runs (minm 500 runs) ****
 
-              Player Name         Runs in IPL   Matches   Innings    Strike Rate     Sixes     Fours   Average  Highest score   Fifties   IPL-Hundreds  Profile-ID             Country
-            Rohit Sharma                 6628       257       252         131.14       280       599     29.72            109        43              2         576              India 
-            Suresh Raina                 5528       205       200         136.73       203       506     32.52            100        39              1         413              India 
-                MS Dhoni                 5243       264       229         137.54       252       363     39.13             84        24              0         265              India 
-           AB de Villiers                5162       184       170         151.69       251       413     39.71            133        40              3         370        South Africa
-             Chris Gayle                 4965       142       141         148.96       357       405     39.72            175        31              6         247         West Indies
-           Robin Uthappa                 4952       205       197         130.35       182       481     27.51             88        27              0         527              India 
-          Dinesh Karthik                 4842       257       234         135.36       161       466     26.32             97        22              0         145              India 
-          Gautam Gambhir                 4218       154       152         123.91        59       491     31.01             93        36              0         308              India 
-            Shane Watson                 3874       145       141         137.91       190       376     30.99            117        21              4         158          Australia 
-          Kieron Pollard                 3412       189       171         147.32       223       218     28.67             87        16              0         657         West Indies
-            Yusuf Pathan                 3204       174       154         142.97       158       262     29.13            100        13              1         790              India 
-         Ravindra Jadeja                 2959       240       184         129.72       107       215      27.4             62         3              0         587              India 
-        Brendon McCullum                 2880       109       109         131.75       130       293     27.69            158        13              2         201         New Zealand
-           Parthiv Patel                 2848       139       137         120.78        49       365      22.6             81        13              0          74              India 
-            Yuvraj Singh                 2750       132       126         129.72       149       217     24.77             83        13              0          69              India 
-         Virender Sehwag                 2728       104       104         155.44       106       334     27.56            122        16              2          26              India 
-             Shaun Marsh                 2477        71        69         132.74        78       266     39.95            115        20              1         563          Australia 
-          Jacques Kallis                 2427        98        96         109.23        44       255     28.55             89        17              0         213        South Africa
-            Dwayne Smith                 2385        91        89          135.2       117       245     28.39             87        17              0         255         West Indies
-        Sachin Tendulkar                 2334        78        78         119.82        29       295     33.83            100        13              1          25              India 
-            Rahul Dravid                 2174        89        82         115.52        28       268     28.23             75        11              0          27              India 
-          Adam Gilchrist                 2069        80        80         138.39        92       239     27.22            109        11              2          36          Australia 
-        Jean-Paul Duminy                 2029        83        77         124.02        79       126     39.78             78        14              0         211        South Africa
-      Mahela Jayawardene                 1802        80        78         123.26        39       200      28.6            110        10              1         101           Sri Lanka
-            Manoj Tiwary                 1695        98        85         116.98        40       156     28.73             75         7              0         694              India 
-        Kumar Sangakkara                 1687        71        68         121.19        27       195     25.95             94        10              0         104           Sri Lanka
-            Dwayne Bravo                 1560       161       113         129.57        66       121     22.61             70         5              0         242         West Indies
-             S Badrinath                 1441        95        67         118.89        28       154     30.66             71        11              0         574              India 
-             Eoin Morgan                 1405        83        75          122.6        64       112     22.66             68         5              0         624            England 
-              Brad Hodge                 1400        66        63         125.22        43       122     33.33             73         6              0         283          Australia 
-          Sourav Ganguly                 1349        59        56         106.81        42       137     25.45             91         7              0          29              India 
-            David Hussey                 1291        64        59         122.25        58        88     26.35             71         5              0         562          Australia 
-    Tillakaratne Dilshan                 1153        52        50          114.5        24       140     26.81             76         9              0         105           Sri Lanka
-            Irfan Pathan                 1139       103        82          120.4        37        87     21.49             60         1              0          73              India 
-          Matthew Hayden                 1107        32        32         137.52        44       121      36.9             93         8              0         157          Australia 
-           Lendl Simmons                 1079        29        29         126.64        44       109     39.96            100        11              1         599         West Indies
-             Ross Taylor                 1017        55        54         123.72        46        66     25.43             81         3              0         521         New Zealand
-         Kevin Pietersen                 1001        36        36         134.72        40        91     35.75            103         4              1         395            England 
-           Venugopal Rao                  985        65        54         117.82        37        77     22.39             71         3              0         412              India 
-          Andrew Symonds                  974        39        37         129.87        41        74     36.07            117         5              1          39          Australia 
-            Albie Morkel                  974        91        68         141.98        55        61     24.35             73         3              0         484        South Africa
-           Cameron White                  954        47        45         126.36        36        76      26.5             78         6              0         282          Australia 
-        Herschelle Gibbs                  886        36        36         109.79        31        83     27.69             69         6              0         212        South Africa
-         Harbhajan Singh                  833       163        90         137.91        42        79     15.15             64         1              0          75              India 
-          Shakib Al Hasan                 793        71        52         124.49        21        73     19.82             66         2              0         544         Bangladesh 
-       Sanath Jayasuriya                  768        30        30         144.36        39        84     27.43            114         4              1         102           Sri Lanka
-            Graeme Smith                  739        29        29         110.63         9        94     28.42             91         4              0         207        South Africa
-           Piyush Chawla                  624       192        92         110.83        20        56     11.14             24         0              0         466              India 
-             Jesse Ryder                  604        29        29         131.88        19        69     21.57             86         4              0         583         New Zealand
-             Hashim Amla                  577        16        16         141.77        21        60     44.38            104         3              2         314        South Africa
-             Ravi Bopara                  531        24        22         117.22        16        39      29.5             84         3              0         571            England 
-           Mithun Manhas                  514        55        38         109.36        10        43     22.35             42         0              0         597              India 
-              Owais Shah                  506        23        22         130.08        23        34     33.73             76         4              0         520            England 
+              Player Name         Runs in IPL   Matches   Innings    Strike Rate     Sixes     Fours   Average  Highest score   Fifties   IPL-Hundreds  Profile-ID        Country
+           Shikhar Dhawan                6768       222       221         127.12       152       768     35.07            106        51              2        1446          India
+             Rohit Sharma                6628       257       252         131.14       280       599     29.72            109        43              2         576          India
+             David Warner                6565       184       184         139.77       235       664     40.52            126        62              4        1739      Australia
+                 MS Dhoni                5243       264       229         137.54       252       363     39.13             84        24              0         265          India
+           AB de Villiers                5162       184       170         151.69       251       413     39.71            133        40              3         370   South Africa
+              Chris Gayle                4965       142       141         148.96       357       405     39.72            175        31              6         247    West Indies
+            Robin Uthappa                4952       205       197         130.35       182       481     27.51             88        27              0         527          India
+           Dinesh Karthik                4842       257       234         135.36       161       466     26.32             97        22              0         145          India
+                 KL Rahul                4683       132       123         134.61       187       400     45.47            132        37              4        8733          India
+           Ajinkya Rahane                4642       185       171         123.42       103       478     30.14            105        30              2        1447          India
+           Faf du Plessis                4571       145       138         136.37       166       421     35.99             96        37              0        7825   South Africa
+             Sanju Samson                4419       167       163         138.96       206       352     30.69            119        25              3        8271          India
+           Gautam Gambhir                4218       154       152         123.91        59       491     31.01             93        36              0         308          India
+             Shane Watson                3874       145       141         137.91       190       376     30.99            117        21              4         158      Australia
+            Manish Pandey                3850       171       159         121.11       110       334     29.17            114        22              1        1836          India
+         Suryakumar Yadav                3594       150       135         145.33       130       385     32.09            103        24              2        7915          India
+              Jos Buttler                3582       107       106         147.53       161       355     38.11            124        19              7        2258        England
+           Kieron Pollard                3412       189       171         147.32       223       218     28.67             87        16              0         657    West Indies
+             Rishabh Pant                3284       111       110         148.93       154       296     35.31            128        18              1       10744          India
+             Yusuf Pathan                3204       174       154         142.97       158       262     29.13            100        13              1         790          India
+          Quinton de Kock                3157       107       107         134.23       123       316     31.26            140        23              2        8520   South Africa
+             Shreyas Iyer                3127       115       115         127.48       113       271     32.24             96        21              0        9428          India
+          Ravindra Jadeja                2959       240       184         129.72       107       215      27.4             62         3              0         587          India
+          Wriddhiman Saha                2934       170       145         127.57        87       296     24.25            115        13              1        1465          India
+             David Miller                2924       130       124         139.24       134       207      36.1            101        13              1        6349   South Africa
+         Brendon McCullum                2880       109       109         131.75       130       293     27.69            158        13              2         201    New Zealand
+            Parthiv Patel                2848       139       137         120.78        49       365      22.6             81        13              0          74          India
+            Glenn Maxwell                2771       134       129         156.73       160       232     24.74             95        18              0        7662      Australia
+             Yuvraj Singh                2750       132       126         129.72       149       217     24.77             83        13              0          69          India
+          Virender Sehwag                2728       104       104         155.44       106       334     27.56            122        16              2          26          India
+           Mayank Agarwal                2665       127       121         133.25        98       264     22.78            106        13              1        2195          India
+             Ishan Kishan                2644       105        99         135.87       119       255     28.43             99        16              0       10276          India
+              Nitish Rana                2636       107       101         135.04       132       234     28.34             87        18              0        9204          India
+             Murali Vijay                2619       106       106         121.87        91       247     25.93            127        13              2        1597          India
+            Hardik Pandya                2525       137       128         145.62       136       189     28.69             91        10              0        9647          India
+             Steven Smith                2485       103        93         128.09        60       225     34.51            101        11              1        2250      Australia
+              Shaun Marsh                2477        71        69         132.74        78       266     39.95            115        20              1         563      Australia
+           Jacques Kallis                2427        98        96         109.23        44       255     28.55             89        17              0         213   South Africa
+             Dwayne Smith                2385        91        89          135.2       117       245     28.39             87        17              0         255    West Indies
+         Sachin Tendulkar                2334        78        78         119.82        29       295     33.83            100        13              1          25          India
+             Rahul Dravid                2174        89        82         115.52        28       268     28.23             75        11              0          27          India
+          Kane Williamson                2128        79        77         125.62        64       185     35.47             89        18              0        6326    New Zealand
+           Adam Gilchrist                2069        80        80         138.39        92       239     27.22            109        11              2          36      Australia
+         Jean-Paul Duminy                2029        83        77         124.02        79       126     39.78             78        14              0         211   South Africa
+           Michael Hussey                1977        59        58         122.64        52       198     38.76            116        15              1        4772      Australia
+           Marcus Stoinis                1866        96        88         142.01        91       150     28.27            124         9              1        8989      Australia
+       Mahela Jayawardene                1802        80        78         123.26        39       200      28.6            110        10              1         101      Sri Lanka
+            Mandeep Singh                1706       111        98         122.91        38       176      20.8             77         6              0        6319          India
+         Kumar Sangakkara                1687        71        68         121.19        27       195     25.95             94        10              0         104      Sri Lanka
+               Axar Patel                1653       150       113         130.88        79       107     21.47             66         3              0        8808          India
+         Yashasvi Jaiswal                1607        52        52         150.61        64       198     32.14            124         9              2       13940          India
+           Jonny Bairstow                1589        50        50         144.45        69       166     34.54            114         9              2        6507        England
+             Dwayne Bravo                1560       161       113         129.57        66       121     22.61             70         5              0         242    West Indies
+         Devdutt Padikkal                1559        64        64         123.14        42       169     25.15            101         9              1       13088          India
+               Naman Ojha                1554       113        94         118.35        79       121     20.72             94         6              0        1599          India
+             Sunil Narine                1534       176       110         165.84        97       164     17.04            109         7              1        2276    West Indies
+               Karun Nair                1496        76        68         127.75        39       161     23.75             83        10              0        8257          India
+           Saurabh Tiwary                1494        93        74          120.1        50       111     28.73             61         8              0        1601          India
+             Deepak Hooda                1465       118        96         129.53        61        96     18.31             64         8              0        9427          India
+              Eoin Morgan                1405        83        75          122.6        64       112     22.66             68         5              0         624        England
+               Brad Hodge                1400        66        63         125.22        43       122     33.33             73         6              0         283      Australia
+           Sourav Ganguly                1349        59        56         106.81        42       137     25.45             91         7              0          29          India
+           Venkatesh Iyer                1326        50        49         137.13        61       121     31.57            104        11              1       10917          India
+             David Hussey                1291        64        59         122.25        58        88     26.35             71         5              0         562      Australia
+          Shimron Hetmyer                1243        72        66         153.08        82        76     31.08             75         4              0        9789    West Indies
+             Kedar Jadhav                1208        95        81         123.14        40       102     22.37             69         4              0        1851          India
+              Riyan Parag                1173        69        58         135.14        60        84     24.44             84         6              0       12305          India
+     Tillakaratne Dilshan                1153        52        50          114.5        24       140     26.81             76         9              0         105      Sri Lanka
+             Irfan Pathan                1139       103        82          120.4        37        87     21.49             60         1              0          73          India
+            Vijay Shankar                1115        72        60          129.8        45        80     25.34             63         6              0        8204          India
+           Matthew Hayden                1107        32        32         137.52        44       121      36.9             93         8              0         157      Australia
+              Manan Vohra                1083        56        51         130.64        43       104      22.1             95         3              0        8358          India
+            Sai Sudharsan                1034        25        25         139.17        31        95      47.0            103         6              1       13866          India
+              Ross Taylor                1017        55        54         123.72        46        66     25.43             81         3              0         521    New Zealand
+          Kevin Pietersen                1001        36        36         134.72        40        91     35.75            103         4              1         395        England
+         Moises Henriques                1000        62        54          126.9        28        87     27.78             74         5              0        1437      Australia
+           Andrew Symonds                 974        39        37         129.87        41        74     36.07            117         5              1          39      Australia
+             Albie Morkel                 974        91        68         141.98        55        61     24.35             73         3              0         484   South Africa
+            Cameron White                 954        47        45         126.36        36        76      26.5             78         6              0         282      Australia
+               Ben Stokes                 935        45        44         133.95        32        81     24.61            107         2              2        6557        England
+             Devon Conway                 924        23        22         141.28        30        99     48.63             92         9              0        9838    New Zealand
+         Herschelle Gibbs                 886        36        36         109.79        31        83     27.69             69         6              0         212   South Africa
+               Sam Curran                 883        59        48         136.48        37        74     25.23             63         5              0       10420        England
+             Stuart Binny                 880        95        68         128.84        35        66     19.13             48         0              0        1530          India
+          Harbhajan Singh                 833       163        90         137.91        42        79     15.15             64         1              0          75          India
+      Ravichandran Ashwin                 800       211        94         118.52        28        61     13.33             50         1              0        1593          India
+            Rajat Patidar                 799        27        24         158.85        54        51     34.74            112         7              1       10636          India
+              Travis Head                 772        25        25         173.87        40        76     36.76            102         5              1        8497      Australia
+        Sanath Jayasuriya                 768        30        30         144.36        39        84     27.43            114         4              1         102      Sri Lanka
+        Prabhsimran Singh                 756        34        34         146.23        41        78     22.24            103         3              1       14254          India
+             Graeme Smith                 739        29        29         110.63         9        94     28.42             91         4              0         207   South Africa
+            Jitesh Sharma                 730        40        36         151.14        45        53     22.81             49         0              0       10214          India
+           Angelo Mathews                 724        49        42         125.91        29        44     23.35             65         1              0        1629      Sri Lanka
+            Cameron Green                 707        29        28          153.7        32        62     41.59            100         2              1       12225      Australia
+           Abhishek Nayar                 672        60        50         116.46        20        55     17.68             45         0              0        1463          India
+           Mitchell Marsh                 665        42        36         127.64        38        48     19.56             89         3              0        6250      Australia
+            George Bailey                 663        40        37         121.88        19        59     24.56             61         2              0        1440      Australia
+                Tim David                 659        38        35         170.28        46        38     28.65             46         0              0       13169      Australia
+               Evin Lewis                 654        27        26         137.11        36        62     27.25             65         4              0        8579    West Indies
+             Ayush Badoni                 634        42        35         134.04        24        46     24.38             59         4              0       13907          India
+            Piyush Chawla                 624       192        92         110.83        20        56     11.14             24         0              0         466          India
+             Chris Morris                 618        81        51         155.28        35        41     22.07             82         2              0        8333   South Africa
+              Jesse Ryder                 604        29        29         131.88        19        69     21.57             86         4              0         583    New Zealand
+            Sarfaraz Khan                 585        50        37         130.58        14        63      22.5             67         1              0        9429          India
+              Abdul Samad                 577        50        40         146.08        36        37     19.23             37         0              0       14628          India
+            Shahrukh Khan                 553        40        38         141.43        37        35     19.75             58         1              0       10226          India
+           Corey Anderson                 538        30        29         127.19        31        40     24.45             95         3              0        8982  United States
+            Shahbaz Ahmed                 536        55        37         121.82        25        28     19.14             59         1              0       14606          India
+              Ravi Bopara                 531        24        22         117.22        16        39      29.5             84         3              0         571        England
+           Mahipal Lomror                 527        40        35         141.29        30        33     18.17             54         1              0       10954          India
+            Mithun Manhas                 514        55        38         109.36        10        43     22.35             42         0              0         597          India
+               Owais Shah                 506        23        22         130.08        23        34     33.73             76         4              0         520        England
+            Paul Valthaty                 505        23        23         120.81        20        60     22.95            120         2              1        1865          India
 
 
  **** IPL Stats - Most Wickets (minm 50 wickets) ****
 
-              Player Name  Total Wkts   IPL Matches   Innings   Best-Bowling   Economy Rate  Bowl Strike Rate  Profile-ID             Country
-           Piyush Chawla          192           192       191           4/17           7.96             20.05         466              India 
-            Dwayne Bravo          183           161       158           4/22           8.39             17.04         242         West Indies
-          Lasith Malinga          170           122       122           5/13           7.14             16.63         111           Sri Lanka
-         Ravindra Jadeja          160           240       211           5/16           7.62             23.93         587              India 
-         Harbhajan Singh          150           163       160           5/18           7.08             22.77          75              India 
-            Ashish Nehra          106            88        88           4/10           7.85              18.0         269              India 
-             Zaheer Khan          102           100        99           4/17           7.59             21.57          71              India 
-              Dale Steyn           97            95        95            3/8           6.92             22.43         508        South Africa
-            Shane Watson           92           145       105           4/29           7.93             22.05         158          Australia 
-           Ishant Sharma           92           110       110           5/12           8.24              25.1         702              India 
-           Praveen Kumar           90           119       119           3/18           7.73             28.04         592              India 
-                RP Singh           90            82        82           4/22            7.9             19.72         434              India 
-            Albie Morkel           85            91        87           4/32           8.21             20.27         484        South Africa
-            Irfan Pathan           80           103       101           3/24      7.7799997             25.54          73              India 
-            Morne Morkel           77            70        70           4/20           7.69             21.16         608        South Africa
-     Lakshmipathy Balaji           76            73        73           5/24           8.05             19.91          96              India 
-             Munaf Patel           74            63        63           5/21           7.52             18.31         522              India 
-          Kieron Pollard           69           189       107           4/44           8.79             21.57         657         West Indies
-          Jacques Kallis           65            98        89           3/13            7.9              26.8         213        South Africa
-          Shakib Al Hasan          63            71        70           3/17           7.44             23.56         544         Bangladesh 
-    Muttiah Muralitharan           63            66        66           3/11           6.68             24.19         110           Sri Lanka
-        Mitchell Johnson           61            54        54           3/26           8.29              20.2         496          Australia 
-             Shane Warne           57            55        54           4/21           7.27             20.95         135          Australia 
+              Player Name  Total Wkts   IPL Matches   Innings   Best-Bowling   Economy Rate  Bowl Strike Rate  Profile-ID        Country
+            Piyush Chawla         192           192       191           4/17           7.96             20.05         466          India
+             Dwayne Bravo         183           161       158           4/22           8.39             17.04         242    West Indies
+             Sunil Narine         180           176       175           5/19           6.73             22.64        2276    West Indies
+      Ravichandran Ashwin         180           211       208           4/34           7.12             25.13        1593          India
+              Amit Mishra         174           162       162           5/17           7.38             19.37        1454          India
+           Lasith Malinga         170           122       122           5/13           7.14             16.63         111      Sri Lanka
+          Ravindra Jadeja         160           240       211           5/16           7.62             23.93         587          India
+          Harbhajan Singh         150           163       160           5/18           7.08             22.77          75          India
+              Umesh Yadav         144           148       147           4/23           8.49             21.18        1858          India
+           Sandeep Sharma         137           126       126           5/18           7.89              20.6        8356          India
+            Harshal Patel         135           106       103           5/27           8.74             16.01        8175          India
+             Mohit Sharma         132           112       111           5/10           8.67             17.07        8181          India
+               Axar Patel         123           150       148           4/21           7.28              25.2        8808          India
+            Kagiso Rabada         117            80        80           4/21           8.48             15.54        9585   South Africa
+             Ashish Nehra         106            88        88           4/10           7.85              18.0         269          India
+              Vinay Kumar         105           105       104           4/40           8.39              20.2        1449          India
+              Zaheer Khan         102           100        99           4/17           7.59             21.57          71          India
+           Jaydev Unadkat          99           105       104           5/25           8.98             21.53        6327          India
+             Chris Morris          95            81        81           4/23           8.01             18.11        8333   South Africa
+           Shardul Thakur          94            95        92           4/36           9.23             19.85        8683          India
+           Mohammed Siraj          93            93        93           4/21           8.65             21.05       10808          India
+             Shane Watson          92           145       105           4/29           7.93             22.05         158      Australia
+            Ishant Sharma          92           110       110           5/12           8.24              25.1         702          India
+            Praveen Kumar          90           119       119           3/18           7.73             28.04         592          India
+                 RP Singh          90            82        82           4/22            7.9             19.72         434          India
+             Pragyan Ojha          89            92        90           3/11           7.37             21.34        1356          India
+            Kuldeep Yadav          87            84        82           4/14           8.21             20.07        8292          India
+             Albie Morkel          85            91        87           4/32           8.21             20.27         484   South Africa
+      Varun Chakaravarthy          83            70        70           5/20           7.56             19.13       12926          India
+              Imran Tahir          82            59        59           4/12           7.76             16.05        6667   South Africa
+             Irfan Pathan          80           103       101           3/24      7.7799997             25.54          73          India
+            Deepak Chahar          77            81        81           4/13           7.98             21.68        7836          India
+              Karn Sharma          76            84        82           4/16           8.38             19.67        1844          India
+      Lakshmipathy Balaji          76            73        73           5/24           8.05             19.91          96          India
+              Munaf Patel          74            63        63           5/21           7.52             18.31         522          India
+            Khaleel Ahmed          74            57        57           3/21           8.84             17.24       10952          India
+             Rajat Bhatia          71            95        91           4/15           7.41             23.04        1468          India
+     Mitchell McClenaghan          71            56        56           4/21           8.49             17.94        7624    New Zealand
+           Kieron Pollard          69           189       107           4/44           8.79             21.57         657    West Indies
+              T Natarajan          67            61        61           4/19           8.84             19.96       10225          India
+           Jacques Kallis          65            98        89           3/13            7.9              26.8         213   South Africa
+        Siddharth Trivedi          65            76        75           4/25           7.59             23.17        1594          India
+            Hardik Pandya          64           137        93           3/17            9.1             22.16        9647          India
+             Ravi Bishnoi          63            66        65           3/24           7.81              22.4       14659          India
+     Muttiah Muralitharan          63            66        66           3/11           6.68             24.19         110      Sri Lanka
+         Mitchell Johnson          61            54        54           3/26           8.29              20.2         496      Australia
+        Mustafizur Rahman          61            57        57           4/29           8.14             21.28        9863     Bangladesh
+            Anrich Nortje          60            46        46           3/33           8.96             17.57       11427   South Africa
+               Sam Curran          58            59        58           4/11           9.65             20.36       10420        England
+            Siddarth Kaul          58            55        55           4/29           8.63             20.84        1828          India
+             Jason Holder          53            46        46           4/52           8.81             18.77        8313    West Indies
+           Mitchell Starc          51            40        39           4/15           8.21             16.29        7710      Australia
 

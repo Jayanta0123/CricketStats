@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
@@ -405,12 +406,16 @@ public class MultiThreadedStats {
 		
 		for (int i=start; i<=end; i++) {
 			try {
-				// Add user agent
+				// add user agent
 				URL objUrl = new URL(cricketProfiles[i]);
 				HttpURLConnection urlConnection = (HttpURLConnection) objUrl.openConnection();
 				urlConnection.setRequestMethod("GET");
 				urlConnection.setRequestProperty("content-type", "application/text; charset=UTF-8");
 				urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36");
+
+				urlConnection.setConnectTimeout(5000);
+				urlConnection.setReadTimeout(10000);
+
 				urlConnection.connect();
 
 				BufferedReader buffer = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), StandardCharsets.UTF_8));
@@ -419,45 +424,35 @@ public class MultiThreadedStats {
 				t20iNumbers.clear(); iplNumbers.clear();
 				String playerName = "";
 				String playerCountry = "";
-				
-				int posStartGlobal=0;
-				int posEndGlobal=0;
-				int posCareerInfoGlobal=0;
-				
-				while ((inputLine=buffer.readLine()) != null) {
+
+                while ((inputLine=buffer.readLine()) != null) {
 					String[] words = inputLine.split("[ !<>=\"/,.]");
 					int posStart = 0; int posEnd = 0; 						
 					int posCareerInfo = 0;
 
 					String matchType="";
 					for(int x=0; x<words.length; x++) {
-						if(words[x].isEmpty() || words[x] == null || words[x].equals("")) continue; 
-//						System.out.print(x + "->" + words[x] + " ");
+						if(words[x].isEmpty() || words[x] == null) continue;
+
 						if(words[x].equals("strong") && (words[x+2].equals("strong") || words[x+3].equals("strong"))){
-							if(words[x+1].equals("Test")) {
-								posStart = x;
-								matchType = "Test";
-/*								System.out.println("In Test profile " + i + ", start-pos = " + posStart);
-								System.out.println("End pos = " + posEnd);	*/
-							}
-							else if(words[x+1].equals("ODI")){
-								posStart = x;
-								matchType = "ODI";
-/*								System.out.println("In ODI profile " + i + ", start-pos = " + posStart);					
-								System.out.println("End pos = " + posEnd);	*/
-							}
-							else if(words[x+1].equals("T20I")){
-								posStart = x;
-								matchType = "T20I";
-/*								System.out.println("In T20I profile " + i + ", start-pos = " + posStart);					
-								System.out.println("End pos = " + posEnd); */
-							}
-							else if(words[x+1].equals("IPL")){
-								posStart = x;
-								matchType = "IPL";
-/*								System.out.println("In IPL profile " + i + ", start-pos = " + posStart);					
-								System.out.println("End pos = " + posEnd);*/
-							}
+                            switch (words[x + 1]) {
+                                case "Test":
+                                    posStart = x;
+                                    matchType = "Test";
+                                    break;
+                                case "ODI":
+                                    posStart = x;
+                                    matchType = "ODI";
+                                    break;
+                                case "T20I":
+                                    posStart = x;
+                                    matchType = "T20I";
+                                    break;
+                                case "IPL":
+                                    posStart = x;
+                                    matchType = "IPL";
+                                    break;
+                            }
 						}
 						
 						if(words[x].equals("tbody") && words[x+4].equals("table") && 
@@ -487,10 +482,9 @@ public class MultiThreadedStats {
 /*						if(i+25 == 201) {
 							System.out.print(" ** " + x + " -> " + words[x] + "\t");
 						}
-*/				
-						posStartGlobal = posStart; posEndGlobal = posEnd; posCareerInfoGlobal = posCareerInfo;
-						
-						if(StringUtils.isNumeric(words[x]) && x>posStart && posStart>0 && words[x].length()<10 &&
+*/
+
+                        if(StringUtils.isNumeric(words[x]) && x>posStart && posStart>0 && words[x].length()<10 &&
 								posEnd>=0 && posStart>posEnd &&
 								posStart > posCareerInfo) {
 							if(matchType.equals("Test")) testNumbers.add(Integer.parseInt(words[x]));
@@ -979,14 +973,24 @@ public class MultiThreadedStats {
 		
 		PlayerBattingStat testBattingStat;
 		PlayerBowlingStat testBowlingStat;
-		
+
+		DecimalFormat df = new DecimalFormat("#.00");
+
 		if( !testNumbers.isEmpty()) {
 			if(testNumbers.get(1) !=0) {
 				testBatAverage = testNumbers.get(5) + (float) testNumbers.get(6)/100;
 				testStrikeRate = testNumbers.get(8) + (float) testNumbers.get(9)/100;
 				testBatAverage = (testNumbers.get(6)<10)? correctAverageIfNeeded(testNumbers.get(3),(testNumbers.get(1)-testNumbers.get(2))) : testBatAverage;
 				testStrikeRate = (testNumbers.get(9)<10)? correctAverageIfNeeded(testNumbers.get(3)*100,testNumbers.get(7)) : testStrikeRate;
-	
+
+				/* for historical data (old profiles) many times some stats like batsman's strike rate is not available
+				mark them as 0.0 if it's provided like that in the source */
+
+				if (testNumbers.get(8)==0 && testNumbers.get(9)==0 && testStrikeRate>100)
+					testStrikeRate = 0.0f;
+
+				df.format(testBatAverage);  df.format(testStrikeRate);
+
 				testBattingStat = new PlayerBattingStat(testNumbers.get(0), testNumbers.get(1), testNumbers.get(2), 
 					testNumbers.get(3), testNumbers.get(4), testBatAverage, testNumbers.get(7), testStrikeRate, testNumbers.get(10),
 					testNumbers.get(11), testNumbers.get(12), testNumbers.get(13), testNumbers.get(14));
@@ -1002,8 +1006,10 @@ public class MultiThreadedStats {
 				testBowlAverage = (testNumbers.get(27)<10)? correctAverageIfNeeded(testNumbers.get(18),testNumbers.get(19)) : testBowlAverage;
 				testBowlStrikeRate = (testNumbers.get(29)<10)? correctAverageIfNeeded(testNumbers.get(17),testNumbers.get(19)) : testBowlStrikeRate;
 
-				testBestBowlInn = "" + testNumbers.get(20) + "/" + testNumbers.get(21);
-				testBestBowlMatch = "" + testNumbers.get(22) + "/" + testNumbers.get(23);
+				df.format(testBowlEconRate); df.format(testBowlAverage); df.format(testBowlStrikeRate);
+
+				testBestBowlInn = testNumbers.get(20) + "/" + testNumbers.get(21);
+				testBestBowlMatch = testNumbers.get(22) + "/" + testNumbers.get(23);
 				testBowlingStat = new PlayerBowlingStat(testNumbers.get(15), testNumbers.get(16), testNumbers.get(17), 
 						testNumbers.get(18), testNumbers.get(19), testBestBowlInn, testBestBowlMatch, testBowlEconRate,
 						testBowlAverage, testBowlStrikeRate, testNumbers.get(30), testNumbers.get(31));
@@ -1032,7 +1038,10 @@ public class MultiThreadedStats {
 				odiStrikeRate = odiNumbers.get(8) + (float) odiNumbers.get(9)/100;
 				odiBatAverage = (odiNumbers.get(6)<10)? correctAverageIfNeeded(odiNumbers.get(3),(odiNumbers.get(1)-odiNumbers.get(2))) : odiBatAverage;
 				odiStrikeRate = (odiNumbers.get(9)<10)? correctAverageIfNeeded(odiNumbers.get(3)*100,odiNumbers.get(7)) : odiStrikeRate;
-				odiBattingStat = new PlayerBattingStat(odiNumbers.get(0), odiNumbers.get(1), odiNumbers.get(2), 
+
+				df.format(odiStrikeRate); df.format(odiBatAverage);
+
+				odiBattingStat = new PlayerBattingStat(odiNumbers.get(0), odiNumbers.get(1), odiNumbers.get(2),
 						odiNumbers.get(3), odiNumbers.get(4), odiBatAverage, odiNumbers.get(7), odiStrikeRate, odiNumbers.get(10),
 						odiNumbers.get(11), odiNumbers.get(12), odiNumbers.get(13), odiNumbers.get(14));
 			}else {
@@ -1047,8 +1056,10 @@ public class MultiThreadedStats {
 				odiBowlAverage = (odiNumbers.get(27)<10)? correctAverageIfNeeded(odiNumbers.get(18),odiNumbers.get(19)) : odiBowlAverage;
 				odiBowlStrikeRate = (odiNumbers.get(29)<10)? correctAverageIfNeeded(odiNumbers.get(17),odiNumbers.get(19)) : odiBowlStrikeRate;
 
-				odiBestBowlInn = "" + odiNumbers.get(20) + "/" + odiNumbers.get(21);
-				odiBestBowlMatch = "" + odiNumbers.get(22) + "/" + odiNumbers.get(23);
+				df.format(odiBowlEconRate); df.format(odiBowlAverage); df.format(odiBowlStrikeRate);
+
+				odiBestBowlInn = odiNumbers.get(20) + "/" + odiNumbers.get(21);
+				odiBestBowlMatch = odiNumbers.get(22) + "/" + odiNumbers.get(23);
 				odiBowlingStat = new PlayerBowlingStat(odiNumbers.get(15), odiNumbers.get(16), odiNumbers.get(17), 
 						odiNumbers.get(18), odiNumbers.get(19), odiBestBowlInn, odiBestBowlMatch, odiBowlEconRate,
 						odiBowlAverage, odiBowlStrikeRate, odiNumbers.get(30), odiNumbers.get(31));
@@ -1087,7 +1098,9 @@ public class MultiThreadedStats {
 				t20iStrikeRate = t20iNumbers.get(8) + (float) t20iNumbers.get(9)/100;
 				t20iBatAverage = (t20iNumbers.get(6)<10)? correctAverageIfNeeded(t20iNumbers.get(3),(t20iNumbers.get(1)-t20iNumbers.get(2))) : t20iBatAverage;
 				t20iStrikeRate = (t20iNumbers.get(9)<10)? correctAverageIfNeeded(t20iNumbers.get(3)*100,t20iNumbers.get(7)) : t20iStrikeRate;
-	
+
+				df.format(t20iBatAverage); df.format(t20iStrikeRate);
+
 				t20iBattingStat = new PlayerBattingStat(t20iNumbers.get(0), t20iNumbers.get(1), t20iNumbers.get(2), 
 						t20iNumbers.get(3), t20iNumbers.get(4), t20iBatAverage, t20iNumbers.get(7), t20iStrikeRate, t20iNumbers.get(10),
 						t20iNumbers.get(11), t20iNumbers.get(12), t20iNumbers.get(13), t20iNumbers.get(14));
@@ -1103,8 +1116,10 @@ public class MultiThreadedStats {
 				t20iBowlAverage = (t20iNumbers.get(27)<10)? correctAverageIfNeeded(t20iNumbers.get(18),t20iNumbers.get(19)) : t20iBowlAverage;
 				t20iBowlStrikeRate = (t20iNumbers.get(29)<10)? correctAverageIfNeeded(t20iNumbers.get(17),t20iNumbers.get(19)) : t20iBowlStrikeRate;
 
-				t20iBestBowlInn = "" + t20iNumbers.get(20) + "/" + t20iNumbers.get(21);
-				t20iBestBowlMatch = "" + t20iNumbers.get(22) + "/" + t20iNumbers.get(23);
+				df.format(t20iBowlEconRate);  df.format(t20iBowlAverage); df.format(t20iBowlStrikeRate);
+
+				t20iBestBowlInn = t20iNumbers.get(20) + "/" + t20iNumbers.get(21);
+				t20iBestBowlMatch = t20iNumbers.get(22) + "/" + t20iNumbers.get(23);
 				t20iBowlingStat = new PlayerBowlingStat(t20iNumbers.get(15), t20iNumbers.get(16), t20iNumbers.get(17), 
 						t20iNumbers.get(18), t20iNumbers.get(19), t20iBestBowlInn, t20iBestBowlMatch, t20iBowlEconRate,
 						t20iBowlAverage, t20iBowlStrikeRate, t20iNumbers.get(30), t20iNumbers.get(31));
@@ -1134,7 +1149,10 @@ public class MultiThreadedStats {
 				iplStrikeRate = iplNumbers.get(8) + (float) iplNumbers.get(9)/100;
 				iplBatAverage = (iplNumbers.get(6)<10)? correctAverageIfNeeded(iplNumbers.get(3),(iplNumbers.get(1)-iplNumbers.get(2))) : iplBatAverage;
 				iplStrikeRate = (iplNumbers.get(9)<10)? correctAverageIfNeeded(iplNumbers.get(3)*100,iplNumbers.get(7)) : iplStrikeRate;
-				iplBattingStat = new PlayerBattingStat(iplNumbers.get(0), iplNumbers.get(1), iplNumbers.get(2), 
+
+				df.format(iplBatAverage); df.format(iplStrikeRate);
+
+				iplBattingStat = new PlayerBattingStat(iplNumbers.get(0), iplNumbers.get(1), iplNumbers.get(2),
 						iplNumbers.get(3), iplNumbers.get(4), iplBatAverage, iplNumbers.get(7), iplStrikeRate, iplNumbers.get(10),
 						iplNumbers.get(11), iplNumbers.get(12), iplNumbers.get(13), iplNumbers.get(14));
 			}else {
@@ -1149,8 +1167,10 @@ public class MultiThreadedStats {
 				iplBowlAverage = (iplNumbers.get(27)<10)? correctAverageIfNeeded(iplNumbers.get(18),iplNumbers.get(19)) : iplBowlAverage;
 				iplBowlStrikeRate = (iplNumbers.get(29)<10)? correctAverageIfNeeded(iplNumbers.get(17),iplNumbers.get(19)) : iplBowlStrikeRate;
 
-				iplBestBowlInn = "" + iplNumbers.get(20) + "/" + iplNumbers.get(21);
-				iplBestBowlMatch = "" + iplNumbers.get(22) + "/" + iplNumbers.get(23);
+				df.format(iplBowlEconRate); df.format(iplBowlAverage); df.format(iplBowlStrikeRate);
+
+				iplBestBowlInn = iplNumbers.get(20) + "/" + iplNumbers.get(21);
+				iplBestBowlMatch = iplNumbers.get(22) + "/" + iplNumbers.get(23);
 				iplBowlingStat = new PlayerBowlingStat(iplNumbers.get(15), iplNumbers.get(16), iplNumbers.get(17), 
 						iplNumbers.get(18), iplNumbers.get(19), iplBestBowlInn, iplBestBowlMatch, iplBowlEconRate,
 						iplBowlAverage, iplBowlStrikeRate, iplNumbers.get(30), iplNumbers.get(31));
@@ -1167,7 +1187,7 @@ public class MultiThreadedStats {
 	}
 
 	private static float correctAverageIfNeeded(Integer runs, int innings) {
-		float calAverage = 0;
+		float calAverage;
 		calAverage = (innings != 0)?(float) runs/innings : 0;
         return (float) (Math.round(calAverage*100.0)/100.0);
 	}
