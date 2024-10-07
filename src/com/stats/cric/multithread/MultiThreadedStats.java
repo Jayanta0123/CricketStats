@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 import org.apache.commons.lang3.StringUtils;
 
 import java.net.HttpURLConnection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class PlayerBattingStat {
 	private int totMatches, totInnings, notOuts, runsScored, highestScore, ballsFaced, hundreds, doubleHundreds, fifties, fours, sixes;
@@ -354,7 +356,7 @@ public class MultiThreadedStats {
 				thread[idx].join();
 			}
 		}catch (InterruptedException ex) {
-			ex.printStackTrace();
+			System.err.println("Interrupted exception - " + ex);
 		}
 		cricketersList = profile[0].cricketersListPartial;
 		for(int idx=1; idx<CricConstants.TOTAL_THREADS_TO_CREATE; idx++)
@@ -366,14 +368,17 @@ public class MultiThreadedStats {
 		startTime = System.currentTimeMillis();
 //		printRecordList(cricketersList);
 //		printSomeStats(cricketersList);
+
 		saveStatsInFiles(cricketersList);
+
+		saveIndianPlayersStatsInFiles(cricketersList.stream().filter(k->k.getPlayerCountry().equalsIgnoreCase("INDIA")).collect(Collectors.toList()));
 		endTime = System.currentTimeMillis();
 		System.out.println("\nTotal time taken (to print data and stats) = " + (endTime-startTime) + " ms\n");
 		System.out.println("\n *** Out of " + cricketProfiles.length + " cricket-profile URLS, " + 
 				cricketersList.stream().map(PlayerSummary::isProfileValid).count()
 			+ " have genuine data for cricketer. ***\n");
 	}
-	
+
 	static List<PlayerSummary> readURLsAndBuildPlayersList(String[] cricketProfiles, int start, int end) {
 		List<Integer> testNumbers = new ArrayList<>();
 		List<Integer> odiNumbers = new ArrayList<>();
@@ -500,7 +505,7 @@ public class MultiThreadedStats {
 				cricketersList.add(playerSummary);
 				buffer.close();
 			} catch (NumberFormatException | IOException e) {
-				e.printStackTrace();
+				System.err.println("Exception occurred in the readURLDetails process - " + e);
 			}
         }
 		//printRecord(testNumbers, odiNumbers, t20iNumbers, iplNumbers);
@@ -536,6 +541,43 @@ public class MultiThreadedStats {
 		SimpleDateFormat df = new SimpleDateFormat(pattern);
 		Date today = Calendar.getInstance().getTime();
 		return df.format(today);
+	}
+
+	private static void saveIndianPlayersStatsInFiles(List<PlayerSummary> indianPlayersList) {
+		String asOfDate = getTodaysDateInMMDDYYYY();
+
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter("cb_indian_intl_cric_test_stats.txt", false));
+			writer.write("\n\n ********* STATS AS OF " + asOfDate + "***********\n");
+			writer.write("\n********* Out of first " + CricConstants.MAX_CRICKETERS_PROFILES_TO_READ + " profiles, total indian-players are " + indianPlayersList.size() + "*********\n\n");
+			writer.write("\nMost test-match runs by Indian cricketers");
+			indianPlayersList.sort(new SortByMostTestRuns());
+
+			writer.write(String.format("%25s", "Player Name") + String.format("%10s", "Tests") + String.format("%10s", "Innings") +
+					String.format("%15s", "Total Runs") + String.format("%15s", "No of 100s" ) +
+					String.format("%15s", "No of 200s" ) + String.format("%12s", "No of 50s" ) +
+					String.format("%15s", "Highest Score" ) + String.format("%14s", "Batting S.R." ) +
+					String.format("%15s", "Batting Avg") + String.format("%12s", "Profile-ID")) ;
+
+			for (PlayerSummary indianPlayer : indianPlayersList) {
+				writer.write(String.format("%25s", indianPlayer.getPlayerName()) +
+						String.format("%10s", indianPlayer.getTestBatSummary().getTotMatches()) +
+						String.format("%10s", indianPlayer.getTestBatSummary().getTotInnings()) +
+						String.format("%15s", indianPlayer.getTestBatSummary().getRunsScored()) +
+						String.format("%15s", indianPlayer.getTestBatSummary().getHundreds()) +
+						String.format("%15s", indianPlayer.getTestBatSummary().getDoubleHundreds()) +
+						String.format("%12s", indianPlayer.getTestBatSummary().getFifties()) +
+						String.format("%15s", indianPlayer.getTestBatSummary().getHighestScore()) +
+						String.format("%14s", indianPlayer.getTestBatSummary().getBattingStrikeRate()) +
+						String.format("%15s", indianPlayer.getTestBatSummary().getBattingAvg()) +
+						String.format("%12s", indianPlayer.getCricbuzzId())
+				);
+			}
+			writer.write("\n\n");
+			writer.close();
+		} catch (IOException e) {
+			System.err.println("IOException occurred in writing data for indian-players- " + e);
+		}
 	}
 
 	private static void saveStatsInFiles(List<PlayerSummary> cricketersList) {
