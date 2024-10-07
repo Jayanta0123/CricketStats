@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.net.HttpURLConnection;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 class PlayerBattingStat {
@@ -371,7 +372,16 @@ public class MultiThreadedStats {
 
 		saveStatsInFiles(cricketersList);
 
-		saveIndianPlayersStatsInFiles(cricketersList.stream().filter(k->k.getPlayerCountry().equalsIgnoreCase("INDIA")).collect(Collectors.toList()));
+		List<PlayerSummary> indianPlayersList = cricketersList.parallelStream().filter(k->k.getPlayerCountry().equalsIgnoreCase("INDIA")).collect(Collectors.toList()) ;
+
+		for(PlayerSummary player: indianPlayersList) {
+			if(player.getCricbuzzId() >= 25 && player.getCricbuzzId()<=35) {
+				System.out.println(player.getPlayerName() + " | " + player.getTestBatSummary().getTotMatches());
+			}
+		}
+
+		saveIndianPlayersStatsInFiles(indianPlayersList);
+
 		endTime = System.currentTimeMillis();
 		System.out.println("\nTotal time taken (to print data and stats) = " + (endTime-startTime) + " ms\n");
 		System.out.println("\n *** Out of " + cricketProfiles.length + " cricket-profile URLS, " + 
@@ -500,8 +510,8 @@ public class MultiThreadedStats {
 					System.out.println("PosStart = " + posStartGlobal + ", posEnd = " + posEndGlobal + ", posCareer = " + posCareerInfoGlobal);
 				}*/
 
-				PlayerSummary playerSummary = buildPlayerObject(testNumbers, odiNumbers, t20iNumbers, iplNumbers, playerName, cricketProfileId,
-						(!playerName.isEmpty()), playerCountry );
+				PlayerSummary playerSummary = buildPlayerObject(testNumbers, odiNumbers, t20iNumbers, iplNumbers, playerName.trim(), cricketProfileId,
+						(!playerName.isEmpty()), playerCountry.trim() );
 				cricketersList.add(playerSummary);
 				buffer.close();
 			} catch (NumberFormatException | IOException e) {
@@ -549,15 +559,15 @@ public class MultiThreadedStats {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("cb_indian_intl_cric_test_stats.txt", false));
 			writer.write("\n\n ********* STATS AS OF " + asOfDate + "***********\n");
-			writer.write("\n********* Out of first " + CricConstants.MAX_CRICKETERS_PROFILES_TO_READ + " profiles, total indian-players are " + indianPlayersList.size() + "*********\n\n");
-			writer.write("\nMost test-match runs by Indian cricketers");
+			writer.write("\n********* Out of first " + CricConstants.MAX_CRICKETERS_PROFILES_TO_READ + " profiles, total indian-players are " + indianPlayersList.size() + " *****\n\n");
+			writer.write("\nMost test-match runs by Indian cricketers\n\n");
 			indianPlayersList.sort(new SortByMostTestRuns());
 
 			writer.write(String.format("%25s", "Player Name") + String.format("%10s", "Tests") + String.format("%10s", "Innings") +
 					String.format("%15s", "Total Runs") + String.format("%15s", "No of 100s" ) +
 					String.format("%15s", "No of 200s" ) + String.format("%12s", "No of 50s" ) +
 					String.format("%15s", "Highest Score" ) + String.format("%14s", "Batting S.R." ) +
-					String.format("%15s", "Batting Avg") + String.format("%12s", "Profile-ID")) ;
+					String.format("%15s", "Batting Avg") + String.format("%12s", "Profile-ID") + "\n") ;
 
 			for (PlayerSummary indianPlayer : indianPlayersList) {
 				writer.write(String.format("%25s", indianPlayer.getPlayerName()) +
@@ -570,7 +580,7 @@ public class MultiThreadedStats {
 						String.format("%15s", indianPlayer.getTestBatSummary().getHighestScore()) +
 						String.format("%14s", indianPlayer.getTestBatSummary().getBattingStrikeRate()) +
 						String.format("%15s", indianPlayer.getTestBatSummary().getBattingAvg()) +
-						String.format("%12s", indianPlayer.getCricbuzzId())
+						String.format("%12s", indianPlayer.getCricbuzzId()) + "\n"
 				);
 			}
 			writer.write("\n\n");
@@ -597,7 +607,7 @@ public class MultiThreadedStats {
 					String.format("%15s", "Highest Score" ) + String.format("%14s", "Batting S.R." ) + 
 					String.format("%10s", "Tests") + String.format("%10s", "Innings") + 
 					String.format("%15s", "Total Runs") + String.format("%15s", "Batting Avg") +
-					String.format("%12s", "Profile-ID") + String.format("%20s", "Country") + "\n");
+					String.format("%12s", "Profile-ID") + String.format("%15s", "Country") + "\n");
 			for(PlayerSummary playerSummary : cricketersList) {
 				if(isValidTestPlayer(playerSummary) && hasBattingStatistics(playerSummary, "TEST") &&
 						hasAtleastTenCenturiesInTESTAndODI(playerSummary, "TEST"))
@@ -612,7 +622,7 @@ public class MultiThreadedStats {
 							String.format("%15s", playerSummary.getTestBatSummary().getRunsScored()) +
 							String.format("%15s", playerSummary.getTestBatSummary().getBattingAvg()) +
 							String.format("%12s", playerSummary.getCricbuzzId()) +
-							String.format("%20s", playerSummary.getPlayerCountry()) + "\n");
+							String.format("%15s", playerSummary.getPlayerCountry()) + "\n");
 			}
 			
 			writer.write("\n\n **** Most Test Wickets (minm 100 wkts) ****\n");
@@ -622,7 +632,7 @@ public class MultiThreadedStats {
 					String.format("%16s", "Best-bowl(Inn)") + String.format("%16s", "Best-bowl(Mat)") +
 					String.format("%12s", "5-Wkt-Haul") + String.format("%12s", "10-Wkt-Haul") +
 					String.format("%18s", "Bowl Strike Rate") + String.format("%12s", "Bowl Avg") +
-					String.format("%12s", "Profile-ID") + String.format("%20s", "Country") + "\n");
+					String.format("%12s", "Profile-ID") + String.format("%15s", "Country") + "\n");
 			for(PlayerSummary playerSummary : cricketersList) {
 				if(isValidTestPlayer(playerSummary) && hasBowlingStatistics(playerSummary, "TEST") && 
 						hasAtLeastFiftyOrHundredWicketsInTESTAndODI(playerSummary, "TEST", 100))
@@ -637,7 +647,7 @@ public class MultiThreadedStats {
 							String.format("%18s", playerSummary.getTestBowlSummary().getBowlingStrikeRate())+
 							String.format("%12s", playerSummary.getTestBowlSummary().getBowlingAvg())+
 							String.format("%12s", playerSummary.getCricbuzzId()) +
-							String.format("%20s", playerSummary.getPlayerCountry()) + "\n");
+							String.format("%15s", playerSummary.getPlayerCountry()) + "\n");
 			}			
 			writer.write("\n");
 			writer.close();
@@ -655,7 +665,7 @@ public class MultiThreadedStats {
 					String.format("%12s", "No of 100s") + String.format("%12s", "No of 50s") + String.format("%15s", "Batting Avg") +
 					String.format("%18s", "Hit-to-fence(4)") + String.format("%18s", "Over-the-fence(6)") +
 					String.format("%18s", "Bat Strike Rate") + 
-					String.format("%12s", "Profile-ID") + String.format("%20s", "Country") + "\n");
+					String.format("%12s", "Profile-ID") + String.format("%15s", "Country") + "\n");
 			for(PlayerSummary playerSummary : cricketersList) {
 				if(isValidOdiPlayer(playerSummary) && hasBattingStatistics(playerSummary, "ODI") &&
 						hasAtleastTenCenturiesInTESTAndODI(playerSummary, "ODI"))
@@ -670,7 +680,7 @@ public class MultiThreadedStats {
 							String.format("%18s", playerSummary.getOdiBatSummary().getSixes()) +
 							String.format("%18s", playerSummary.getOdiBatSummary().getBattingStrikeRate()) +
 							String.format("%12s", playerSummary.getCricbuzzId()) +
-							String.format("%20s", playerSummary.getPlayerCountry()) + "\n");
+							String.format("%15s", playerSummary.getPlayerCountry()) + "\n");
 			}
 
 			writer.write("\n\n **** Most ODI Wickets (minm 100 wkts) ****\n");
@@ -679,7 +689,7 @@ public class MultiThreadedStats {
 					String.format("%12s", "No of ODIs") + String.format("%10s", "Innings") + 
 					String.format("%15s", "Best-Bowling") + String.format("%15s", "Bowling avg") +
 					String.format("%15s", "Bowl Economy") + String.format("%12s", "5-Wkt Haul") +  
-					String.format("%12s", "Profile-ID") + String.format("%20s", "Country") + "\n");
+					String.format("%12s", "Profile-ID") + String.format("%15s", "Country") + "\n");
 			for(PlayerSummary playerSummary : cricketersList) {
 				if(isValidOdiPlayer(playerSummary) && hasBowlingStatistics(playerSummary, "ODI") && 
 						hasAtLeastFiftyOrHundredWicketsInTESTAndODI(playerSummary, "ODI", 100))
@@ -692,7 +702,7 @@ public class MultiThreadedStats {
 							String.format("%15s", playerSummary.getOdiBowlSummary().getBowlingEconomyRate()) +
 							String.format("%15s", playerSummary.getOdiBowlSummary().getFiveWickets()) +
 							String.format("%12s", playerSummary.getCricbuzzId()) +
-							String.format("%20s", playerSummary.getPlayerCountry()) + "\n");
+							String.format("%15s", playerSummary.getPlayerCountry()) + "\n");
 			}
 			writer.write("\n");
 			writer.close();
@@ -709,7 +719,7 @@ public class MultiThreadedStats {
 					String.format("%10s", "Matches") + String.format("%10s", "Innings") + String.format("%10s", "Runs") +
 					String.format("%15s", "Batting S.R.") + String.format("%10s", "Hundreds") + String.format("%10s", "Fifties") +
 					String.format("%10s", "Fours") + String.format("%10s", "Sixes") +
-					String.format("%12s", "Profile-ID") + String.format("%20s", "Country") + "\n";
+					String.format("%12s", "Profile-ID") + String.format("%15s", "Country") + "\n";
 			writer.write(battingHeadersForT20);
 			for(PlayerSummary playerSummary : cricketersList) {
 				if(isValidT20iPlayer(playerSummary) && hasBattingStatistics(playerSummary, "T20I") && 
@@ -725,7 +735,7 @@ public class MultiThreadedStats {
 							String.format("%10s", playerSummary.getT20iBatSummary().getFours()) + 
 							String.format("%10s", playerSummary.getT20iBatSummary().getSixes()) + 
 							String.format("%12s", playerSummary.getCricbuzzId()) +
-							String.format("%20s", playerSummary.getPlayerCountry()) + "\n");
+							String.format("%15s", playerSummary.getPlayerCountry()) + "\n");
 			}
 			writer.write("\n");
 
@@ -746,7 +756,7 @@ public class MultiThreadedStats {
 							String.format("%10s", playerSummary.getT20iBatSummary().getFours()) +
 							String.format("%10s", playerSummary.getT20iBatSummary().getSixes()) +
 							String.format("%12s", playerSummary.getCricbuzzId()) +
-							String.format("%20s", "Country")+ "\n");
+							String.format("%15s", "Country")+ "\n");
 			}
 			writer.write("\n");
 			
@@ -767,7 +777,7 @@ public class MultiThreadedStats {
 							String.format("%10s", playerSummary.getT20iBatSummary().getFours()) + 
 							String.format("%10s", playerSummary.getT20iBatSummary().getSixes()) + 
 							String.format("%12s", playerSummary.getCricbuzzId()) +
-							String.format("%20s", playerSummary.getPlayerCountry()) + "\n");
+							String.format("%15s", playerSummary.getPlayerCountry()) + "\n");
 			}
 			writer.write("\n");
 
@@ -777,7 +787,7 @@ public class MultiThreadedStats {
 					String.format("%12s", "No of T20Is") + String.format("%10s", "Innings") +
 					String.format("%15s", "Best-Bowling") + String.format("%15s", "Bowling avg") +
 					String.format("%15s", "Bowl Economy") + String.format("%12s", "5-Wkt Haul") +
-					String.format("%12s", "Profile-ID") + String.format("%20s", "Country") + "\n";
+					String.format("%12s", "Profile-ID") + String.format("%15s", "Country") + "\n";
 			writer.write(bowlingHeadersForT20);
 
 			for(PlayerSummary playerSummary : cricketersList) {
@@ -792,7 +802,7 @@ public class MultiThreadedStats {
 							String.format("%15s", playerSummary.getT20iBowlSummary().getBowlingEconomyRate()) +
 							String.format("%15s", playerSummary.getT20iBowlSummary().getFiveWickets()) +
 							String.format("%12s", playerSummary.getCricbuzzId()) +
-							String.format("%20s", playerSummary.getPlayerCountry()) + "\n");
+							String.format("%15s", playerSummary.getPlayerCountry()) + "\n");
 			}
 			writer.write("\n");
 
@@ -811,7 +821,7 @@ public class MultiThreadedStats {
 							String.format("%15s", playerSummary.getT20iBowlSummary().getBowlingEconomyRate()) +
 							String.format("%15s", playerSummary.getT20iBowlSummary().getFiveWickets()) +
 							String.format("%12s", playerSummary.getCricbuzzId()) +
-							String.format("%20s", playerSummary.getPlayerCountry()) + "\n");
+							String.format("%15s", playerSummary.getPlayerCountry()) + "\n");
 			}
 			writer.write("\n");
 
@@ -830,7 +840,7 @@ public class MultiThreadedStats {
 					String.format("%10s", "Sixes") + String.format("%10s", "Fours") + String.format("%10s", "Average") + 
 					String.format("%15s", "Highest score") + String.format("%10s", "Fifties") +
 					String.format("%15s", "IPL-Hundreds") + 
-					String.format("%12s", "Profile-ID") + String.format("%20s", "Country") + "\n");
+					String.format("%12s", "Profile-ID") + String.format("%15s", "Country") + "\n");
 			for(PlayerSummary playerSummary : cricketersList) {
 				if(isValidIPLPlayer(playerSummary) && hasBattingStatistics(playerSummary, "IPL") && 
 						hasScoredMinimumFiveHundredRuns(playerSummary, "IPL"))
@@ -846,7 +856,7 @@ public class MultiThreadedStats {
 							String.format("%10s", playerSummary.getIplBatSummary().getFifties()) +
 							String.format("%15s", playerSummary.getIplBatSummary().getHundreds()) +
 							String.format("%12s", playerSummary.getCricbuzzId()) +
-							String.format("%20s", playerSummary.getPlayerCountry()) + "\n");
+							String.format("%15s", playerSummary.getPlayerCountry()) + "\n");
 			}
 			
 			writer.write("\n\n **** IPL Stats - Most Wickets (minm 50 wickets) ****\n\n");
@@ -855,7 +865,7 @@ public class MultiThreadedStats {
 					String.format("%14s", "IPL Matches") + String.format("%10s", "Innings") + 
 					String.format("%15s", "Best-Bowling") + String.format("%15s", "Economy Rate") +
 					String.format("%18s", "Bowl Strike Rate") + 
-					String.format("%12s", "Profile-ID") + String.format("%20s", "Country") + "\n");
+					String.format("%12s", "Profile-ID") + String.format("%15s", "Country") + "\n");
 			for(PlayerSummary playerSummary : cricketersList) {
 				if(isValidIPLPlayer(playerSummary) && hasBowlingStatistics(playerSummary, "IPL") && 
 						hasAtLeastFiftyOrHundredWicketsInTESTAndODI(playerSummary, "IPL", 50))
@@ -867,7 +877,7 @@ public class MultiThreadedStats {
 							String.format("%15s", playerSummary.getIplBowlSummary().getBowlingEconomyRate()) +
 							String.format("%18s", playerSummary.getIplBowlSummary().getBowlingStrikeRate()) +
 							String.format("%12s", playerSummary.getCricbuzzId()) +
-							String.format("%20s", playerSummary.getPlayerCountry()) + "\n");
+							String.format("%15s", playerSummary.getPlayerCountry()) + "\n");
 			}
 			writer.write("\n");
 			writer.close();
